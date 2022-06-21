@@ -1,0 +1,18 @@
+# IntelliJ IDEA
+.idea
+*.iml
+
+# Gradle
+.gradle
+build
+reports
+local.properties
+
+# OSX
+.DS_Store
+
+# Xcode
+xcuserdata
+
+# Cocoapods
+*.podspec
