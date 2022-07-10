@@ -1,0 +1,22 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:diglol.crypto/Argon2.Type/type/#/PointingToDeclaration/kdf/diglol.crypto/-argon2/-type/[jvm]type.html
+$dokka.location:diglol.crypto/Hmac.Type/typeName/#/PointingToDeclaration/mac/diglol.crypto/-hmac/-type/[darwin]type-name.html
+module:aead
+diglol.crypto
+module:cipher
+diglol.crypto
+module:common
+diglol.crypto
+module:hash
+diglol.crypto
+module:kdf
+diglol.crypto
+module:mac
+diglol.crypto
+module:otp
+diglol.crypto.otp
+module:pkc
+diglol.crypto
+module:random
+diglol.crypto.random
