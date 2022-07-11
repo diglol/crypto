@@ -78,7 +78,7 @@ class Poly1305Test {
       val poly1305 = Poly1305(key!!)
       val actual = poly1305.compute(data!!)
       assertContentEquals(expect, actual)
-      assertTrue(poly1305.commonVerify(expect!!, data), index.toString())
+      assertTrue(poly1305.verify(expect!!, data), index.toString())
     }
   }
 }
