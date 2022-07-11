@@ -10,11 +10,13 @@ internal fun DarwinKeyPair.toKeyPair(): KeyPair =
 
 // https://datatracker.ietf.org/doc/html/rfc8032
 actual object Ed25519 : Dsa {
-  actual override suspend fun generateKeyPair(): KeyPair =
-    generateKeyPair(generateEd25519PrivateKey())
+  actual val KEY_SIZE: Int = ED25519_KEY_SIZE
+  actual val SIGN_SIZE: Int = ED25519_SIGN_SIZE
+
+  actual override suspend fun generateKeyPair(): KeyPair = generateKeyPair(generatePrivateKey())
 
   actual override suspend fun generateKeyPair(privateKey: ByteArray): KeyPair {
-    checkEd25519PrivateKey(privateKey)
+    checkPrivateKey(privateKey)
     return DarwinEd25519.generateKeyPairWithPrivateKey(privateKey.toNSData())!!.toKeyPair()
   }
 
@@ -22,16 +24,15 @@ actual object Ed25519 : Dsa {
     DarwinEd25519.signWithPrivateKey(privateKey.toNSData(), data.toNSData())!!.toByteArray()
 
   actual suspend fun sign(keyPair: KeyPair, data: ByteArray): ByteArray =
-    DarwinEd25519.signWithPrivateKey(keyPair.privateKey.toNSData(), data.toNSData())!!
-      .toByteArray()
+    DarwinEd25519.signWithPrivateKey(keyPair.privateKey.toNSData(), data.toNSData())!!.toByteArray()
 
   actual override suspend fun verify(
     signature: ByteArray,
     publicKey: ByteArray,
     data: ByteArray
   ): Boolean {
-    checkEd25519Signature(signature)
-    checkEd25519PublicKey(publicKey)
+    checkSignature(signature)
+    checkPublicKey(publicKey)
     return DarwinEd25519.verifyWithSignature(
       signature.toNSData(),
       publicKey.toNSData(),

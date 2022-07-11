@@ -8,11 +8,14 @@ import org.khronos.webgl.Uint8Array
 
 // https://datatracker.ietf.org/doc/html/rfc8032
 actual object Ed25519 : Dsa {
+  actual val KEY_SIZE: Int = ED25519_KEY_SIZE
+  actual val SIGN_SIZE: Int = ED25519_SIGN_SIZE
+
   actual override suspend fun generateKeyPair(): KeyPair =
-    generateKeyPair(generateEd25519PrivateKey())
+    generateKeyPair(generatePrivateKey())
 
   actual override suspend fun generateKeyPair(privateKey: ByteArray): KeyPair {
-    checkEd25519PrivateKey(privateKey)
+    checkPrivateKey(privateKey)
     val publicKey = Ed25519Js.getPublicKey(privateKey.toUint8Array()).await().toByteArray()
     return KeyPair(publicKey, privateKey)
   }
@@ -36,8 +39,8 @@ actual object Ed25519 : Dsa {
     publicKey: ByteArray,
     data: ByteArray
   ): Boolean {
-    checkEd25519Signature(signature)
-    checkEd25519PublicKey(publicKey)
+    checkSignature(signature)
+    checkPublicKey(publicKey)
     return Ed25519Js.verify(signature.toUint8Array(), data.toUint8Array(), publicKey.toUint8Array())
       .await()
   }

@@ -9,18 +9,20 @@ actual object X25519 : Dh {
   private const val C_A = 486662
   private const val C_A24 = (C_A + 2) / 4
 
+  actual val KEY_SIZE: Int = X25519_KEY_SIZE
+
   actual override suspend fun generateKeyPair(): KeyPair = generateKeyPair(generatePrivateKey())
 
   actual override suspend fun generateKeyPair(privateKey: ByteArray): KeyPair {
-    checkX25519PrivateKey(privateKey)
+    checkPrivateKey(privateKey)
     val publicKey = ByteArray(POINT_SIZE)
     scalarMultBase(privateKey, 0, publicKey, 0)
     return KeyPair(publicKey, privateKey)
   }
 
   actual override suspend fun compute(privateKey: ByteArray, peersPublicKey: ByteArray): ByteArray {
-    checkX25519PrivateKey(privateKey)
-    checkX25519PublicKey(peersPublicKey)
+    checkPrivateKey(privateKey)
+    checkPublicKey(peersPublicKey)
     val sharedSecret = ByteArray(POINT_SIZE)
     scalarMult(privateKey, 0, peersPublicKey, 0, sharedSecret, 0)
     return sharedSecret
