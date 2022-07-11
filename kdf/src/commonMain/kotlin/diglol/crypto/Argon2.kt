@@ -7,7 +7,7 @@ expect class Argon2(
   iterations: Int,
   memory: Int,
   parallelism: Int,
-  hashSize: Int,
+  hashSize: Int = 32,
 ) : Kdf {
   internal val version: Version
   internal val type: Type
