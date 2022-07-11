@@ -263,7 +263,7 @@ class HmacTest {
       val hmac = Hmac(Hmac.Type.SHA1, key)
       val actual = hmac.compute(data)
       assertContentEquals(expect, actual)
-      assertTrue(hmac.commonVerify(expect!!, data), index.toString())
+      assertTrue(hmac.verify(expect!!, data), index.toString())
     }
   }
 
@@ -273,7 +273,7 @@ class HmacTest {
       val hmac = Hmac(Hmac.Type.SHA256, key)
       val actual = hmac.compute(data)
       assertContentEquals(expect, actual)
-      assertTrue(hmac.commonVerify(expect!!, data), index.toString())
+      assertTrue(hmac.verify(expect!!, data), index.toString())
     }
   }
 
@@ -283,7 +283,7 @@ class HmacTest {
       val hmac = Hmac(Hmac.Type.SHA384, key)
       val actual = hmac.compute(data)
       assertContentEquals(expect, actual)
-      assertTrue(hmac.commonVerify(expect!!, data), index.toString())
+      assertTrue(hmac.verify(expect!!, data), index.toString())
     }
   }
 
@@ -293,7 +293,7 @@ class HmacTest {
       val hmac = Hmac(Hmac.Type.SHA512, key)
       val actual = hmac.compute(data)
       assertContentEquals(expect, actual)
-      assertTrue(hmac.commonVerify(expect!!, data), index.toString())
+      assertTrue(hmac.verify(expect!!, data), index.toString())
     }
   }
 }
