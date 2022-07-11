@@ -148,11 +148,13 @@ actual object Ed25519 : Dsa {
     }
   }
 
-  actual override suspend fun generateKeyPair(): KeyPair =
-    generateKeyPair(generateEd25519PrivateKey())
+  actual val KEY_SIZE: Int = ED25519_KEY_SIZE
+  actual val SIGN_SIZE: Int = ED25519_SIGN_SIZE
+
+  actual override suspend fun generateKeyPair(): KeyPair = generateKeyPair(generatePrivateKey())
 
   actual override suspend fun generateKeyPair(privateKey: ByteArray): KeyPair {
-    checkEd25519PrivateKey(privateKey)
+    checkPrivateKey(privateKey)
     val publicKey = ByteArray(PUBLIC_KEY_SIZE)
     generatePublicKey(privateKey, 0, publicKey, 0)
     return KeyPair(publicKey, privateKey)
@@ -176,8 +178,8 @@ actual object Ed25519 : Dsa {
     publicKey: ByteArray,
     data: ByteArray
   ): Boolean {
-    checkEd25519Signature(signature)
-    checkEd25519PublicKey(publicKey)
+    checkSignature(signature)
+    checkPublicKey(publicKey)
     return verify(signature, 0, publicKey, 0, data, 0, data.size)
   }
 
