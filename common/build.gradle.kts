@@ -17,6 +17,7 @@ kotlin {
   jvm()
   js(BOTH) {
     browser()
+    nodejs()
   }
 
   macosX64()

@@ -18,6 +18,7 @@ kotlin {
   jvm()
   js(BOTH) {
     browser()
+    nodejs()
   }
 
   cocoapods {

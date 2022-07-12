@@ -25,4 +25,3 @@ actual class Hash actual constructor(internal actual val type: Type) {
     return digest.digest()
   }
 }
-
