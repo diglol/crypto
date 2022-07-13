@@ -34,6 +34,11 @@ kotlin {
   tvosSimulatorArm64()
   tvosX64()
 
+  mingwX64()
+  mingwX86()
+  linuxX64()
+  linuxArm32Hfp()
+
   sourceSets {
     all {
       languageSettings.optIn("kotlin.RequiresOptIn")
@@ -82,11 +87,22 @@ kotlin {
     val jsMain by sourceSets.getting
     val jsTest by sourceSets.getting
 
+    val nativeMain by sourceSets.creating
+    nativeMain.dependsOn(commonMain)
+
     val darwinMain by sourceSets.creating {
-      dependsOn(commonMain)
+      dependsOn(nativeMain)
     }
     val darwinTest by sourceSets.creating {
       dependsOn(commonTest)
+    }
+
+    val linuxMain by sourceSets.creating {
+      dependsOn(nativeMain)
+    }
+
+    val mingwMain by sourceSets.creating {
+      dependsOn(nativeMain)
     }
 
     targets.withType<KotlinNativeTarget>().all {
@@ -96,7 +112,9 @@ kotlin {
       mainSourceSet.dependsOn(
         when {
           konanTarget.family.isAppleFamily -> darwinMain
-          else -> TODO("Not yet implemented")
+          konanTarget.family == org.jetbrains.kotlin.konan.target.Family.LINUX -> linuxMain
+          konanTarget.family == org.jetbrains.kotlin.konan.target.Family.MINGW -> mingwMain
+          else -> nativeMain
         }
       )
 
