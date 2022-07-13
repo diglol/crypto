@@ -1,12 +1,11 @@
 package diglol.crypto.random
 
+import diglol.crypto.internal.crypto
 import kotlin.math.abs
 import kotlin.math.absoluteValue
-import kotlinx.browser.window
 import org.khronos.webgl.Int32Array
 import org.khronos.webgl.get
 
-private val crypto = window.asDynamic().crypto
 private const val jsNextBytesMaxSize = 65536
 
 actual fun nextInt(bound: Int): Int {

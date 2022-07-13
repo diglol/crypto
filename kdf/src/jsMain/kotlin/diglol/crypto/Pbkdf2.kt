@@ -1,5 +1,6 @@
 package diglol.crypto
 
+import diglol.crypto.internal.subtle
 import kotlin.js.Promise
 import kotlinx.browser.window
 import kotlinx.coroutines.await
@@ -12,8 +13,6 @@ actual class Pbkdf2 actual constructor(
   internal actual val iterations: Int,
   internal actual val keySize: Int
 ) : Kdf {
-  private val subtle = window.asDynamic().crypto.subtle
-
   init {
     checkParams()
   }

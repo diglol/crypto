@@ -1,8 +1,8 @@
 package diglol.crypto
 
+import diglol.crypto.internal.subtle
 import diglol.crypto.random.nextBytes
 import kotlin.js.Promise
-import kotlinx.browser.window
 import kotlinx.coroutines.await
 import org.khronos.webgl.ArrayBuffer
 import org.khronos.webgl.Int8Array
@@ -12,7 +12,6 @@ actual class AesCbc actual constructor(
   internal actual val key: ByteArray,
   internal actual val iv: ByteArray?
 ) : Cipher {
-  private val subtle = window.asDynamic().crypto.subtle
   private val alg = js("{'name': 'AES-CBC'}")
 
   init {

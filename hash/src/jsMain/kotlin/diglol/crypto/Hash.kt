@@ -1,7 +1,7 @@
 package diglol.crypto
 
+import diglol.crypto.internal.subtle
 import kotlin.js.Promise
-import kotlinx.browser.window
 import kotlinx.coroutines.await
 import org.khronos.webgl.ArrayBuffer
 import org.khronos.webgl.Int8Array
@@ -9,7 +9,6 @@ import org.khronos.webgl.Int8Array
 actual class Hash actual constructor(
   internal actual val type: Type
 ) {
-  private val subtle = window.asDynamic().crypto.subtle
   private val alg = js("{}")
 
   init {
