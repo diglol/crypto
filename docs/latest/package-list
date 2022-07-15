@@ -1,6 +1,7 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
 $dokka.location:diglol.crypto/Argon2.Type/type/#/PointingToDeclaration/kdf/diglol.crypto/-argon2/-type/[jvm]type.html
+$dokka.location:diglol.crypto/Argon2.Version/version/#/PointingToDeclaration/kdf/diglol.crypto/-argon2/-version/[jvm]version.html
 $dokka.location:diglol.crypto/Hmac.Type/typeName/#/PointingToDeclaration/mac/diglol.crypto/-hmac/-type/[darwin]type-name.html
 module:aead
 diglol.crypto
