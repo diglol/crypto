@@ -1,0 +1,3 @@
+package = diglol.crypto.internal
+language = Objective-C
+headers = KeyPair.h Ed25519.h X25519.h
