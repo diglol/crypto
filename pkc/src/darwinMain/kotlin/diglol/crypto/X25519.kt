@@ -1,6 +1,6 @@
 package diglol.crypto
 
-import cocoapods.Curve25519.X25519 as DarwinX25519
+import diglol.crypto.internal.X25519 as DarwinX25519
 import diglol.crypto.internal.toByteArray
 import diglol.crypto.internal.toNSData
 

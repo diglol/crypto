@@ -1,16 +1,20 @@
 package diglol.crypto
 
-import cocoapods.Argon2.Argon2KeyDerivator
-import cocoapods.Argon2.Argon2Type
-import diglol.crypto.internal.toByteArray
-import diglol.crypto.internal.toNSData
-import kotlinx.cinterop.ObjCObjectVar
-import kotlinx.cinterop.alloc
+import diglol.crypto.internal.ARGON2_OK
+import diglol.crypto.internal.ARGON2_VERSION_10
+import diglol.crypto.internal.ARGON2_VERSION_13
+import diglol.crypto.internal.Argon2_d
+import diglol.crypto.internal.Argon2_i
+import diglol.crypto.internal.Argon2_id
+import diglol.crypto.internal.Argon2_type
+import diglol.crypto.internal.Argon2_version
+import diglol.crypto.internal.argon2_context
+import diglol.crypto.internal.argon2_ctx
+import kotlinx.cinterop.cValue
+import kotlinx.cinterop.convert
 import kotlinx.cinterop.memScoped
-import kotlinx.cinterop.pointed
-import kotlinx.cinterop.ptr
-import kotlinx.cinterop.value
-import platform.Foundation.NSError
+import kotlinx.cinterop.refTo
+import kotlinx.cinterop.reinterpret
 
 // https://datatracker.ietf.org/doc/rfc9106/
 actual class Argon2 actual constructor(
@@ -23,7 +27,14 @@ actual class Argon2 actual constructor(
 ) : Kdf {
   actual enum class Version {
     V10,
-    V13
+    V13;
+
+    fun version(): Argon2_version {
+      return when (this) {
+        V10 -> ARGON2_VERSION_10
+        V13 -> ARGON2_VERSION_13
+      }
+    }
   }
 
   actual enum class Type {
@@ -31,11 +42,11 @@ actual class Argon2 actual constructor(
     D,
     ID;
 
-    fun type(): Argon2Type {
+    fun type(): Argon2_type {
       return when (this) {
-        I -> Argon2Type.Argon2i
-        D -> Argon2Type.Argon2d
-        ID -> Argon2Type.Argon2id
+        I -> Argon2_i
+        D -> Argon2_d
+        ID -> Argon2_id
       }
     }
   }
@@ -47,22 +58,30 @@ actual class Argon2 actual constructor(
   actual override suspend fun deriveKey(password: ByteArray, salt: ByteArray): ByteArray =
     memScoped {
       checkArgon2Salt(salt)
-      val errorPtr = alloc<ObjCObjectVar<NSError?>>().ptr
-      val result = Argon2KeyDerivator.makeKeyOfLength(
-        hashSize.toUInt(),
-        type.type(),
-        iterations.toUInt(),
-        memory.toUInt(),
-        parallelism.toUInt(),
-        password.toNSData(),
-        salt.toNSData(),
-        errorPtr
-      )
-      val nsError = errorPtr.pointed.value
-      if (nsError == null) {
-        return result!!.toByteArray()
+      val result = ByteArray(hashSize)
+      val context = cValue<argon2_context> {
+        out = result.refTo(0).getPointer(memScope).reinterpret()
+        outlen = hashSize.convert()
+
+        pwd = password.refTo(0).getPointer(memScope).reinterpret()
+        pwdlen = password.size.convert()
+
+        this.salt = salt.refTo(0).getPointer(memScope).reinterpret()
+        saltlen = salt.size.convert()
+
+        t_cost = iterations.convert()
+        m_cost = memory.convert()
+
+        lanes = parallelism.convert()
+        threads = parallelism.convert()
+
+        version = this@Argon2.version.version()
+      }
+      val errorCode = argon2_ctx(context, type.type())
+      if (errorCode == ARGON2_OK) {
+        return result
       } else {
-        throw Error("Argon2 ${type.name} error: ${nsError.code}")
+        throw Error("Argon2 ${type.name} error: $errorCode")
       }
     }
 }

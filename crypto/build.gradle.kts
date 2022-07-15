@@ -99,17 +99,17 @@ kotlin {
     }
 
     targets.withType<KotlinNativeTarget>().all {
-      val mainSourceSet = compilations.getByName("main").defaultSourceSet
-      val testSourceSet = compilations.getByName("test").defaultSourceSet
+      val main by compilations.getting
+      val test by compilations.getting
 
-      mainSourceSet.dependsOn(
+      main.defaultSourceSet.dependsOn(
         when {
           konanTarget.family.isAppleFamily -> darwinMain
           else -> TODO("Not yet implemented")
         }
       )
 
-      testSourceSet.dependsOn(
+      test.defaultSourceSet.dependsOn(
         if (konanTarget.family.isAppleFamily) {
           darwinTest
         } else {

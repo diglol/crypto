@@ -23,8 +23,6 @@ jobs:
           distribution: 'zulu'
           java-version: 18
 
-      - run: gem install cocoapods-generate
-
       - run: ./gradlew build --stacktrace
 
       - run: ./gradlew dokkaHtmlMultiModule

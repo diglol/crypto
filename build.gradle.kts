@@ -15,6 +15,7 @@ buildscript {
   dependencies {
     classpath(libs.kotlin.gradle.plugin)
     classpath(libs.android.gradle.plugin)
+    classpath(libs.cklib.gradle.plugin)
     classpath(libs.dokka.gradle.plugin)
     classpath(libs.mavenPublish.gradle.plugin)
     classpath(libs.benchmark.gradle.plugin)

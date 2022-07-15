@@ -2,6 +2,8 @@ import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinMultiplatform
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import org.jetbrains.kotlin.konan.target.Family.LINUX
+import org.jetbrains.kotlin.konan.target.Family.MINGW
 
 plugins {
   kotlin("multiplatform")
@@ -107,19 +109,19 @@ kotlin {
     }
 
     targets.withType<KotlinNativeTarget>().all {
-      val mainSourceSet = compilations.getByName("main").defaultSourceSet
-      val testSourceSet = compilations.getByName("test").defaultSourceSet
+      val main by compilations.getting
+      val test by compilations.getting
 
-      mainSourceSet.dependsOn(
+      main.defaultSourceSet.dependsOn(
         when {
           konanTarget.family.isAppleFamily -> darwinMain
-          konanTarget.family == org.jetbrains.kotlin.konan.target.Family.LINUX -> linuxMain
-          konanTarget.family == org.jetbrains.kotlin.konan.target.Family.MINGW -> mingwMain
+          konanTarget.family == LINUX -> linuxMain
+          konanTarget.family == MINGW -> mingwMain
           else -> nativeMain
         }
       )
 
-      testSourceSet.dependsOn(
+      test.defaultSourceSet.dependsOn(
         if (konanTarget.family.isAppleFamily) {
           darwinTest
         } else {

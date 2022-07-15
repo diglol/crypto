@@ -1,3 +1,4 @@
+import co.touchlab.cklib.gradle.CompileToBitcode.Language.C
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinMultiplatform
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
@@ -5,10 +6,10 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
   kotlin("multiplatform")
-  kotlin("native.cocoapods")
   id("com.android.library")
   id("org.jetbrains.dokka")
   id("com.vanniktech.maven.publish.base")
+  id("co.touchlab.cklib")
 }
 
 kotlin {
@@ -19,15 +20,6 @@ kotlin {
   js(BOTH) {
     browser()
     nodejs()
-  }
-
-  cocoapods {
-    summary = "Crypto Kdf"
-    homepage = "https://github.com/diglol/crypto"
-
-    pod("Argon2") {
-      version = "~> 1.3.1"
-    }
   }
 
   macosX64()
@@ -118,17 +110,24 @@ kotlin {
     }
 
     targets.withType<KotlinNativeTarget>().all {
-      val mainSourceSet = compilations.getByName("main").defaultSourceSet
-      val testSourceSet = compilations.getByName("test").defaultSourceSet
+      val main by compilations.getting
+      val test by compilations.getting
 
-      mainSourceSet.dependsOn(
+      main.cinterops {
+        create("kdf") {
+          includeDirs("$projectDir/argon2")
+          compilerOpts("-DNS_FORMAT_ARGUMENT(A)=", "-D_Nullable_result=_Nullable")
+        }
+      }
+
+      main.defaultSourceSet.dependsOn(
         when {
           konanTarget.family.isAppleFamily -> darwinMain
           else -> TODO("Not yet implemented")
         }
       )
 
-      testSourceSet.dependsOn(
+      test.defaultSourceSet.dependsOn(
         if (konanTarget.family.isAppleFamily) {
           darwinTest
         } else {
@@ -136,6 +135,17 @@ kotlin {
         }
       )
     }
+  }
+}
+
+cklib {
+  config.kotlinVersion = libs.versions.kotlin.get()
+  create("kdf") {
+    language = C
+    srcDirs = project.files(file("argon2"))
+    compilerArgs.addAll(
+      listOf("-DKONAN_MI_MALLOC=1", "-DNS_FORMAT_ARGUMENT(A)=", "-D_Nullable_result=_Nullable")
+    )
   }
 }
 

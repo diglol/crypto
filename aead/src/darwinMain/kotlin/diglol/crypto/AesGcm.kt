@@ -1,7 +1,7 @@
 package diglol.crypto
 
-import cocoapods.AesGcm.IAGAesGcm
-import cocoapods.AesGcm.IAGCipheredData
+import diglol.crypto.internal.IAGAesGcm
+import diglol.crypto.internal.IAGCipheredData
 import diglol.crypto.internal.plusByteArrays
 import diglol.crypto.internal.toByteArray
 import diglol.crypto.internal.toNSData
