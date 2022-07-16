@@ -45,7 +45,7 @@ Include all submodules.
 _If you need to depend on a submodule, please refer to the currently supported cryptographic constants._
 
 ```gradle
-implementation("com.diglol.crypto:crypto:0.1.0-SNAPSHOT")
+implementation("com.diglol.crypto:crypto:0.1.0")
 ```
 
 ### License
