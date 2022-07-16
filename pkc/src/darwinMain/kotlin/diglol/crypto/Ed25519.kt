@@ -1,12 +1,14 @@
 package diglol.crypto
 
-import diglol.crypto.internal.Ed25519 as DarwinEd25519
-import diglol.crypto.internal.KeyPair as DarwinKeyPair
-import diglol.crypto.internal.toByteArray
-import diglol.crypto.internal.toNSData
-
-internal fun DarwinKeyPair.toKeyPair(): KeyPair =
-  KeyPair(publicKey()!!.toByteArray(), privateKey()!!.toByteArray())
+import diglol.crypto.internal.ed25519_CreatePublicKey
+import diglol.crypto.internal.ed25519_SignMessage
+import diglol.crypto.internal.ed25519_VerifySignature
+import kotlinx.cinterop.convert
+import kotlinx.cinterop.cstr
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.refTo
+import kotlinx.cinterop.reinterpret
+import platform.posix.NULL
 
 // https://datatracker.ietf.org/doc/html/rfc8032
 actual object Ed25519 : Dsa {
@@ -17,14 +19,33 @@ actual object Ed25519 : Dsa {
 
   actual override suspend fun generateKeyPair(privateKey: ByteArray): KeyPair {
     checkPrivateKey(privateKey)
-    return DarwinEd25519.generateKeyPairWithPrivateKey(privateKey.toNSData())!!.toKeyPair()
+    val publicKey = ByteArray(KEY_SIZE)
+    memScoped {
+      ed25519_CreatePublicKey(
+        publicKey.refTo(0).getPointer(memScope).reinterpret(),
+        NULL,
+        privateKey.refTo(0).getPointer(memScope).reinterpret(),
+      )
+    }
+    return KeyPair(publicKey, privateKey)
   }
 
   actual override suspend fun sign(privateKey: ByteArray, data: ByteArray): ByteArray =
-    DarwinEd25519.signWithPrivateKey(privateKey.toNSData(), data.toNSData())!!.toByteArray()
+    sign(generateKeyPair(privateKey), data)
 
-  actual suspend fun sign(keyPair: KeyPair, data: ByteArray): ByteArray =
-    DarwinEd25519.signWithPrivateKey(keyPair.privateKey.toNSData(), data.toNSData())!!.toByteArray()
+  actual suspend fun sign(keyPair: KeyPair, data: ByteArray): ByteArray {
+    val signature = ByteArray(SIGN_SIZE)
+    memScoped {
+      ed25519_SignMessage(
+        signature.refTo(0).getPointer(memScope).reinterpret(),
+        (keyPair.privateKey + keyPair.publicKey).refTo(0).getPointer(memScope).reinterpret(),
+        NULL,
+        (if (data.isEmpty()) "".cstr else data.refTo(0)).getPointer(memScope).reinterpret(),
+        data.size.convert()
+      )
+    }
+    return signature
+  }
 
   actual override suspend fun verify(
     signature: ByteArray,
@@ -33,10 +54,13 @@ actual object Ed25519 : Dsa {
   ): Boolean {
     checkSignature(signature)
     checkPublicKey(publicKey)
-    return DarwinEd25519.verifyWithSignature(
-      signature.toNSData(),
-      publicKey.toNSData(),
-      data.toNSData()
-    )
+    memScoped {
+      return ed25519_VerifySignature(
+        signature.refTo(0).getPointer(memScope).reinterpret(),
+        publicKey.refTo(0).getPointer(memScope).reinterpret(),
+        (if (data.isEmpty()) "".cstr else data.refTo(0)).getPointer(memScope).reinterpret(),
+        data.size.convert()
+      ) == 1
+    }
   }
 }
