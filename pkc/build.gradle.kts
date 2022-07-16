@@ -1,4 +1,4 @@
-import co.touchlab.cklib.gradle.CompileToBitcode.Language.OBJC
+import co.touchlab.cklib.gradle.CompileToBitcode.Language.C
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinMultiplatform
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
@@ -133,7 +133,7 @@ kotlin {
 cklib {
   config.kotlinVersion = libs.versions.kotlin.get()
   create("pkc") {
-    language = OBJC
+    language = C
     srcDirs = project.files(file("curve25519"))
     compilerArgs.addAll(
       listOf("-DKONAN_MI_MALLOC=1", "-DNS_FORMAT_ARGUMENT(A)=", "-D_Nullable_result=_Nullable")
