@@ -68,7 +68,7 @@ tasks.withType<DokkaMultiModuleTask> {
 
 allprojects {
   tasks.withType<DokkaTaskPartial>().configureEach {
-    if (project.name == projects.crypto.name) {
+    if (project.name == "crypto") {
       return@configureEach
     }
     dokkaSourceSets.configureEach {
