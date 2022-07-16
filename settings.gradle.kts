@@ -4,10 +4,13 @@ include(":common")
 include(":random")
 include(":hash")
 include(":mac")
-include(":pkc")
-include(":kdf")
+// TODO Error with cklib on Windows
+if (!System.getProperty("os.name").startsWith("Windows")) {
+  include(":pkc")
+  include(":kdf")
+  include(":aead")
+}
 include(":cipher")
-include(":aead")
 include(":otp")
 include(":crypto")
 include(":benchmark")

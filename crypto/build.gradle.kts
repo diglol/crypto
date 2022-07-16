@@ -51,10 +51,13 @@ kotlin {
         api(projects.random)
         api(projects.hash)
         api(projects.mac)
-        api(projects.pkc)
-        api(projects.kdf)
+        // TODO Error with cklib on Windows
+        if (!System.getProperty("os.name").startsWith("Windows")) {
+          api(project(":pkc"))
+          api(project(":kdf"))
+          api(project(":aead"))
+        }
         api(projects.cipher)
-        api(projects.aead)
         api(projects.otp)
       }
     }
