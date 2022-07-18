@@ -45,7 +45,7 @@ Diglol Crypto for Kotlin Multiplatform.
 _如果需要依赖子模块，请参考当前支持的加密常量。_
 
 ```gradle
-implementation("com.diglol.crypto:crypto:0.1.0")
+implementation("com.diglol.crypto:crypto:0.1.1")
 ```
 
 ### License
