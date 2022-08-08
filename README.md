@@ -42,10 +42,14 @@ Our [change log](CHANGELOG.md) has release history.
 
 Include all submodules.
 
+```gradle
+implementation("com.diglol.crypto:crypto:0.1.1")
+```
+
 _If you need to depend on a submodule, please refer to the currently supported cryptographic constants._
 
 ```gradle
-implementation("com.diglol.crypto:crypto:0.1.1")
+implementation("com.diglol.crypto:${submodule}:0.1.1")
 ```
 
 ### License
