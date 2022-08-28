@@ -57,6 +57,19 @@ subprojects {
       exceptionFormat = TestExceptionFormat.FULL
     }
   }
+
+  tasks.withType<AbstractArchiveTask>().configureEach {
+    isPreserveFileTimestamps = false
+    isReproducibleFileOrder = true
+  }
+
+  normalization {
+    runtimeClasspath {
+      metaInf {
+        ignoreAttribute("Bnd-LastModified")
+      }
+    }
+  }
 }
 
 apply(plugin = "org.jetbrains.dokka")
