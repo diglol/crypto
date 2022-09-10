@@ -1,11 +1,12 @@
 package diglol.crypto
 
+import diglol.crypto.internal.isBrowser
 import diglol.crypto.internal.toByteArray
 import diglol.crypto.internal.toUint8Array
 import diglol.encoding.decodeBase64ToBytes
 import kotlin.js.Promise
-import kotlinx.browser.window
 import kotlinx.coroutines.await
+import org.khronos.webgl.ArrayBuffer
 import org.khronos.webgl.Uint8Array
 
 // https://datatracker.ietf.org/doc/rfc9106/
@@ -36,11 +37,21 @@ actual class Argon2 actual constructor(
 
   init {
     checkParams()
-    window.asDynamic().loadArgon2WasmBinary = fun(): Promise<Uint8Array> {
-      return WasmFeatureDetect.simd().then {
-        if (it) argon2SimdWasm else argon2Wasm
-      }.then {
-        it.decodeBase64ToBytes()!!.toUint8Array()
+    val global = js("typeof self !== 'undefined' ? self : this")
+    global.loadArgon2WasmBinary = fun(): Promise<Uint8Array> {
+      return WasmFeatureDetect.simd().then { simdSupported ->
+        if (simdSupported) {
+          js("require('argon2-browser/dist/argon2-simd.wasm')")
+        } else {
+          js("require('argon2-browser/dist/argon2.wasm')")
+        }
+      }.then { wasm: dynamic ->
+        if (isBrowser) {
+          val wasmString = wasm as String
+          wasmString.decodeBase64ToBytes()!!.toUint8Array()
+        } else {
+          Uint8Array(wasm.arrayBuffer() as ArrayBuffer)
+        }
       }
     }
   }
@@ -65,14 +76,6 @@ actual class Argon2 actual constructor(
 internal external object WasmFeatureDetect {
   fun simd(): Promise<Boolean>
 }
-
-@JsModule("argon2-browser/dist/argon2.wasm")
-@JsNonModule
-internal external val argon2Wasm: String
-
-@JsModule("argon2-browser/dist/argon2-simd.wasm")
-@JsNonModule
-internal external val argon2SimdWasm: String
 
 @JsModule("argon2-browser")
 @JsNonModule

@@ -3,8 +3,10 @@ package diglol.crypto.internal
 import org.khronos.webgl.Int8Array
 import org.khronos.webgl.Uint8Array
 
+val isBrowser = js("typeof window !== 'undefined'") as Boolean
+
 val crypto: dynamic
-  get() = if (js("typeof crypto !== 'undefined'") as Boolean) {
+  get() = if (isBrowser) {
     js("crypto")
   } else {
     js("require('crypto').webcrypto")
