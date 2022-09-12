@@ -24,7 +24,7 @@ buildscript {
 
 allprojects {
   group = "com.diglol.crypto"
-  version = "0.1.2"
+  version = "0.2.0-SNAPSHOT"
 
   repositories {
     mavenCentral()
