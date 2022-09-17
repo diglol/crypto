@@ -121,15 +121,13 @@ kotlin {
 }
 
 android {
+  namespace = "diglol.crypto"
+
   compileSdk = libs.versions.compileSdk.get().toInt()
   defaultConfig {
     minSdk = libs.versions.minSdk.get().toInt()
 
     consumerProguardFiles("proguard-rules.pro")
-  }
-
-  val main by sourceSets.getting {
-    manifest.srcFile("src/androidMain/AndroidManifest.xml")
   }
 
   testOptions {
