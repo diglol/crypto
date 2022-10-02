@@ -25,7 +25,6 @@ actual class Hash actual constructor(
     SHA512
   }
 
-  @OptIn(ExperimentalUnsignedTypes::class)
   actual suspend fun hash(data: ByteArray): ByteArray {
     val shaFun: (data: CValuesRef<*>?, len: CC_LONG, md: CValuesRef<UByteVar>?) -> CPointer<UByteVar>?
     val shaLen: Int
@@ -47,8 +46,9 @@ actual class Hash actual constructor(
         shaLen = CC_SHA512_DIGEST_LENGTH
       }
     }
-    val macData = UByteArray(shaLen)
-    shaFun(data.refTo(0), data.size.convert(), macData.refTo(0))
-    return macData.toByteArray()
+    val macData = ByteArray(shaLen)
+    @Suppress("UNCHECKED_CAST")
+    shaFun(data.refTo(0), data.size.convert(), macData.refTo(0) as CValuesRef<UByteVar>)
+    return macData
   }
 }
