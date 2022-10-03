@@ -1,12 +1,10 @@
 package diglol.crypto.internal
 
 import kotlinx.cinterop.addressOf
-import kotlinx.cinterop.allocArrayOf
 import kotlinx.cinterop.convert
-import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.usePinned
 import platform.Foundation.NSData
-import platform.Foundation.create
+import platform.Foundation.dataWithBytesNoCopy
 import platform.posix.memcpy
 
 inline fun NSData.toByteArray(): ByteArray {
@@ -22,6 +20,15 @@ inline fun NSData.toByteArray(): ByteArray {
   }
 }
 
-inline fun ByteArray.toNSData(): NSData = memScoped {
-  NSData.create(bytes = allocArrayOf(this@toNSData), length = size.convert())
+fun ByteArray.toNSData(freeWhenDone: Boolean = false): NSData = this.usePinned {
+  val bytesPointer = when {
+    isNotEmpty() -> it.addressOf(0)
+    else -> null
+  }
+  NSData.dataWithBytesNoCopy(
+    bytes = bytesPointer,
+    length = size.convert(),
+    freeWhenDone = freeWhenDone
+  )
 }
+
