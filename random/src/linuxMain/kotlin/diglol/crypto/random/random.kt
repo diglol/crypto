@@ -12,19 +12,19 @@ import platform.posix.fread
 actual fun nextInt(bound: Int): Int = commonNextInt(bound)
 
 actual fun nextBytes(size: Int): ByteArray {
-  return if (size != 0) {
-    ByteArray(size).apply {
-      usePinned {
-        val ptr = it.addressOf(0)
-        val file = fopen("/dev/urandom", "rb")
-        if (file != null) {
-          fread(ptr, 1.convert(), this.size.convert(), file)
-          for (n in this.indices) this[n] = ptr[n]
-          fclose(file)
-        }
+  if (size == 0) {
+    return emptyBytes
+  }
+  return ByteArray(size).apply {
+    usePinned {
+      val ptr = it.addressOf(0)
+      val file = fopen("/dev/urandom", "rb")
+      if (file != null) {
+        @Suppress("OPT_IN_USAGE")
+        fread(ptr, 1.convert(), this.size.convert(), file)
+        for (n in this.indices) this[n] = ptr[n]
+        fclose(file)
       }
     }
-  } else {
-    emptyBytes
   }
 }

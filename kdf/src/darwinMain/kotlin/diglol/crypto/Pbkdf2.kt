@@ -36,7 +36,7 @@ actual class Pbkdf2 actual constructor(
       kCCPBKDF2,
       passwordString,
       passwordString.length.convert(),
-      salt.toUByteArray().refTo(0),
+      salt.refTo(0) as CValuesRef<uint8_tVar>,
       salt.size.convert(),
       alg,
       iterations.toUInt(),

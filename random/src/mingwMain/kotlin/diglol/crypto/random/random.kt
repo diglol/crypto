@@ -24,13 +24,12 @@ private val bcryptGenRandom by lazy {
 actual fun nextInt(bound: Int): Int = commonNextInt(bound)
 
 actual fun nextBytes(size: Int): ByteArray {
-  return if (size != 0) {
-    ByteArray(size).apply {
-      usePinned {
-        bcryptGenRandom(null, it.addressOf(0).reinterpret(), this.size.convert(), 2.convert())
-      }
+  if (size == 0) {
+    return emptyBytes
+  }
+  return ByteArray(size).apply {
+    usePinned {
+      bcryptGenRandom(null, it.addressOf(0).reinterpret(), this.size.convert(), 2.convert())
     }
-  } else {
-    emptyBytes
   }
 }

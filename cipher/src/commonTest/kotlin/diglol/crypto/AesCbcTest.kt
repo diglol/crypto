@@ -1,5 +1,6 @@
 package diglol.crypto
 
+import diglol.crypto.internal.emptyBytes
 import diglol.encoding.decodeHexToBytes
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
@@ -16,6 +17,12 @@ class AesCbcTest {
 
   // https://datatracker.ietf.org/doc/html/rfc3602#section-4
   private val aesCbcSamples = listOf(
+    Sample(
+      "c286696d887c9aa0611bbb3e2025a45a".decodeHexToBytes()!!,
+      "562e17996d093d28ddb3ba695a2e6f58".decodeHexToBytes()!!,
+      emptyBytes,
+      "d3bcd806dfdecb0a1b13d580ce51a929".decodeHexToBytes()!!,
+    ),
     Sample(
       "c286696d887c9aa0611bbb3e2025a45a".decodeHexToBytes()!!,
       "562e17996d093d28ddb3ba695a2e6f58".decodeHexToBytes()!!,

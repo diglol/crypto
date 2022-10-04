@@ -2,9 +2,9 @@ package diglol.crypto
 
 import diglol.crypto.internal.curve25519_dh_CalculatePublicKey_fast
 import diglol.crypto.internal.curve25519_dh_CreateSharedKey
-import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.CValuesRef
+import kotlinx.cinterop.UByteVar
 import kotlinx.cinterop.refTo
-import kotlinx.cinterop.reinterpret
 
 // https://datatracker.ietf.org/doc/html/rfc7748
 actual object X25519 : Dh {
@@ -15,12 +15,11 @@ actual object X25519 : Dh {
   actual override suspend fun generateKeyPair(privateKey: ByteArray): KeyPair {
     checkPrivateKey(privateKey)
     val publicKey = ByteArray(KEY_SIZE)
-    memScoped {
-      curve25519_dh_CalculatePublicKey_fast(
-        publicKey.refTo(0).getPointer(memScope).reinterpret(),
-        privateKey.refTo(0).getPointer(memScope).reinterpret()
-      )
-    }
+    @Suppress("UNCHECKED_CAST")
+    curve25519_dh_CalculatePublicKey_fast(
+      publicKey.refTo(0) as CValuesRef<UByteVar>,
+      privateKey.refTo(0) as CValuesRef<UByteVar>
+    )
     return KeyPair(publicKey, privateKey)
   }
 
@@ -28,13 +27,12 @@ actual object X25519 : Dh {
     checkPrivateKey(privateKey)
     checkPublicKey(peersPublicKey)
     val sharedKey = ByteArray(KEY_SIZE)
-    memScoped {
-      curve25519_dh_CreateSharedKey(
-        sharedKey.refTo(0).getPointer(memScope).reinterpret(),
-        peersPublicKey.refTo(0).getPointer(memScope).reinterpret(),
-        privateKey.refTo(0).getPointer(memScope).reinterpret()
-      )
-    }
+    @Suppress("UNCHECKED_CAST")
+    curve25519_dh_CreateSharedKey(
+      sharedKey.refTo(0) as CValuesRef<UByteVar>,
+      peersPublicKey.refTo(0) as CValuesRef<UByteVar>,
+      privateKey.refTo(0) as CValuesRef<UByteVar>
+    )
     return sharedKey
   }
 }

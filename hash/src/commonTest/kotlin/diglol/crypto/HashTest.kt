@@ -1,5 +1,6 @@
 package diglol.crypto
 
+import diglol.crypto.internal.emptyBytes
 import diglol.encoding.decodeHexToBytes
 import diglol.encoding.encodeHexToString
 import kotlin.test.Test
@@ -16,6 +17,7 @@ class HashTest {
 
   //https://datatracker.ietf.org/doc/html/rfc4634#section-8.4
   private val sha1Samples = listOf(
+    Triple(emptyBytes, 1, "DA39A3EE5E6B4B0D3255BFEF95601890AFD80709"),
     Triple("abc".encodeToByteArray(), 1, "A9993E364706816ABA3E25717850C26C9CD0D89D"),
     Triple(
       "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq".encodeToByteArray(),
@@ -34,6 +36,7 @@ class HashTest {
 
   // https://datatracker.ietf.org/doc/html/rfc4634#section-8.4
   private val sha256Samples = listOf(
+    Triple(emptyBytes, 1, "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"),
     Triple(
       "abc".encodeToByteArray(),
       1,
@@ -64,6 +67,11 @@ class HashTest {
   // https://datatracker.ietf.org/doc/html/rfc4634#section-8.4
   private val sha384Samples = listOf(
     Triple(
+      emptyBytes,
+      1,
+      "38B060A751AC96384CD9327EB1B1E36A21FDB71114BE07434C0CC7BF63F6E1DA274EDEBFE76F65FBD51AD2F14898B95B"
+    ),
+    Triple(
       "abc".encodeToByteArray(),
       1,
       "CB00753F45A35E8BB5A03D699AC65007272C32AB0EDED1631A8B605A43FF5BED8086072BA1E7CC2358BAECA134C825A7"
@@ -92,6 +100,11 @@ class HashTest {
 
   // https://datatracker.ietf.org/doc/html/rfc4634#section-8.4
   private val sha512Samples = listOf(
+    Triple(
+      emptyBytes,
+      1,
+      "CF83E1357EEFB8BDF1542850D66D8007D620E4050B5715DC83F4A921D36CE9CE47D0D13C5D85F2B0FF8318D2877EEC2F63B931BD47417A81A538327AF927DA3E"
+    ),
     Triple(
       "abc".encodeToByteArray(),
       1,

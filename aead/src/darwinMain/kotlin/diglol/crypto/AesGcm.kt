@@ -7,11 +7,13 @@ import diglol.crypto.internal.toByteArray
 import diglol.crypto.internal.toNSData
 import diglol.crypto.random.nextBytes
 import kotlinx.cinterop.ObjCObjectVar
+import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.convert
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
+import kotlinx.cinterop.usePinned
 import kotlinx.cinterop.value
 import platform.Foundation.NSError
 
@@ -25,6 +27,7 @@ actual class AesGcm actual constructor(
     checkIv()
   }
 
+  @Suppress("OPT_IN_USAGE")
   actual override suspend fun encrypt(
     plaintext: ByteArray,
     associatedData: ByteArray
@@ -50,6 +53,7 @@ actual class AesGcm actual constructor(
     }
   }
 
+  @Suppress("OPT_IN_USAGE")
   actual override suspend fun decrypt(
     ciphertext: ByteArray,
     associatedData: ByteArray
@@ -60,8 +64,10 @@ actual class AesGcm actual constructor(
     val tag = ciphertext.copyOfRange(ciphertext.size - TAG_SIZE, ciphertext.size)
     val errorPtr = alloc<ObjCObjectVar<NSError?>>().ptr
     val cipheredData = IAGCipheredData(
-      rawCiphertext.toNSData().bytes, rawCiphertext.size.convert(),
-      tag.toNSData().bytes, tag.size.convert()
+      if (rawCiphertext.isNotEmpty()) rawCiphertext.usePinned { it.addressOf(0) } else null,
+      rawCiphertext.size.convert(),
+      tag.usePinned { it.addressOf(0) },
+      tag.size.convert()
     )
     val plaintext = IAGAesGcm.plainDataByAuthenticatedDecryptingCipheredData(
       cipheredData,
