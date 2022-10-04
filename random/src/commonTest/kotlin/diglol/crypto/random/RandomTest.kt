@@ -27,6 +27,11 @@ class RandomTest {
   }
 
   @Test
+  fun nextEmptyBytes() {
+    assertTrue(nextBytes(0).isEmpty())
+  }
+
+  @Test
   fun nextBytes() {
     val size = 100
     val bytes1 = nextBytes(size)

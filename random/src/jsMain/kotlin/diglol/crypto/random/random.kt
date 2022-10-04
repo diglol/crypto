@@ -1,6 +1,7 @@
 package diglol.crypto.random
 
 import diglol.crypto.internal.crypto
+import diglol.crypto.internal.emptyBytes
 import kotlin.math.abs
 import kotlin.math.absoluteValue
 import org.khronos.webgl.Int32Array
@@ -16,6 +17,9 @@ actual fun nextInt(bound: Int): Int {
 }
 
 actual fun nextBytes(size: Int): ByteArray {
+  if (size == 0) {
+    return emptyBytes
+  }
   val result = ByteArray(size)
   val times = size / jsNextBytesMaxSize
   val remainder = size % jsNextBytesMaxSize
