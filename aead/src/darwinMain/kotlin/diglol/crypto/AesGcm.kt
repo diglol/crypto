@@ -13,9 +13,7 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.value
-import platform.Foundation.NSData
 import platform.Foundation.NSError
-import platform.Foundation.create
 
 // https://datatracker.ietf.org/doc/html/rfc5288
 actual class AesGcm actual constructor(
@@ -41,14 +39,11 @@ actual class AesGcm actual constructor(
       realIv.toNSData(),
       key.toNSData(),
       errorPtr
-    )
+    )!!
     val nsError = errorPtr.pointed.value
     if (nsError == null) {
-      val rawCiphertext =
-        NSData.create(bytes = result!!.cipheredBuffer, result.cipheredBufferLength).toByteArray()
-      val tag =
-        NSData.create(bytes = result.authenticationTag, result.authenticationTagLength)
-          .toByteArray()
+      val rawCiphertext = result.cipheredBuffer.toByteArray(result.cipheredBufferLength.convert())
+      val tag = result.authenticationTag.toByteArray(result.authenticationTagLength.convert())
       return realIv.plusByteArrays(rawCiphertext, tag)
     } else {
       throw Error("Aes gcm encrypt error: ${nsError.code}")
