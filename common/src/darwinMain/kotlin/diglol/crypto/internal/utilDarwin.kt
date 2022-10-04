@@ -1,8 +1,11 @@
 package diglol.crypto.internal
 
+import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.COpaquePointer
+import kotlinx.cinterop.CValuesRef
 import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.convert
+import kotlinx.cinterop.refTo
 import kotlinx.cinterop.usePinned
 import platform.Foundation.NSData
 import platform.Foundation.dataWithBytesNoCopy
@@ -34,3 +37,7 @@ fun ByteArray.toNSData(freeWhenDone: Boolean = false): NSData = this.usePinned {
   )
 }
 
+fun ByteArray.refToOrElse(
+  index: Int,
+  default: CValuesRef<ByteVar>? = null
+): CValuesRef<ByteVar>? = if (isNotEmpty()) refTo(index) else default

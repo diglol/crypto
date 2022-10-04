@@ -1,5 +1,6 @@
 package diglol.crypto
 
+import diglol.crypto.internal.emptyBytes
 import diglol.encoding.decodeHexToBytes
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
@@ -7,6 +8,9 @@ import kotlinx.coroutines.test.runTest
 
 // https://github.com/P-H-C/phc-winner-argon2/blob/master/argon2-specs.pdf
 class Argon2Test {
+  private val password: ByteArray = "password".encodeToByteArray()
+  private val salt: ByteArray = "somesalt".encodeToByteArray()
+
   private data class Sample(
     val iterations: Int,
     val memory: Int,
@@ -36,13 +40,44 @@ class Argon2Test {
   )
 
   @Test
+  fun emptyPassword() = runTest {
+    try {
+      val argon2i =
+        Argon2(Argon2.Version.V13, Argon2.Type.I, 2, 64, 2, 32)
+      assertContentEquals(
+        "105ba0b3e28d378ac97930f562f44aaf7c2d5ff401e9242d75fc3a3467d1cdc7".decodeHexToBytes(),
+        argon2i.deriveKey(emptyBytes, salt),
+        "i"
+      )
+      val argon2d =
+        Argon2(Argon2.Version.V13, Argon2.Type.D, 2, 64, 2, 32)
+      assertContentEquals(
+        "027ad398cc43b2688c5698babf7750ed6c744767887403de29accef802cb6f46".decodeHexToBytes(),
+        argon2d.deriveKey(emptyBytes, salt),
+        "d"
+      )
+      val argon2id =
+        Argon2(Argon2.Version.V13, Argon2.Type.ID, 2, 64, 2, 32)
+      assertContentEquals(
+        "fe47c31a9d8dc9c5fe0fcd896a299b1622070c4f8759240f50c51c18d8ebefe1".decodeHexToBytes(),
+        argon2id.deriveKey(emptyBytes, salt),
+        "id"
+      )
+    } catch (e: kotlin.Error) {
+      if (e.message?.contains("argon2") != true) { // ignore argon2 error on Android
+        throw e
+      }
+    }
+  }
+
+  @Test
   fun i() = runTest {
     try {
       iSamples.forEachIndexed { index, (iterations, memory, parallelism, result) ->
         val expect = result.decodeHexToBytes()!!
         val argon2 =
           Argon2(Argon2.Version.V13, Argon2.Type.I, iterations, memory, parallelism, expect.size)
-        val hash = argon2.deriveKey("password".encodeToByteArray(), "somesalt".encodeToByteArray())
+        val hash = argon2.deriveKey(password, salt)
         assertContentEquals(expect, hash, index.toString())
       }
     } catch (e: kotlin.Error) {
@@ -59,7 +94,7 @@ class Argon2Test {
         val expect = result.decodeHexToBytes()!!
         val argon2 =
           Argon2(Argon2.Version.V13, Argon2.Type.D, iterations, memory, parallelism, expect.size)
-        val hash = argon2.deriveKey("password".encodeToByteArray(), "somesalt".encodeToByteArray())
+        val hash = argon2.deriveKey(password, salt)
         assertContentEquals(expect, hash, index.toString())
       }
     } catch (e: kotlin.Error) {
@@ -76,7 +111,7 @@ class Argon2Test {
         val expect = result.decodeHexToBytes()!!
         val argon2 =
           Argon2(Argon2.Version.V13, Argon2.Type.ID, iterations, memory, parallelism, expect.size)
-        val hash = argon2.deriveKey("password".encodeToByteArray(), "somesalt".encodeToByteArray())
+        val hash = argon2.deriveKey(password, salt)
         assertContentEquals(expect, hash, index.toString())
       }
     } catch (e: kotlin.Error) {

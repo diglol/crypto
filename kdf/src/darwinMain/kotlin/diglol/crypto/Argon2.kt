@@ -10,11 +10,13 @@ import diglol.crypto.internal.Argon2_type
 import diglol.crypto.internal.Argon2_version
 import diglol.crypto.internal.argon2_context
 import diglol.crypto.internal.argon2_ctx
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.cValue
 import kotlinx.cinterop.convert
 import kotlinx.cinterop.memScoped
-import kotlinx.cinterop.refTo
-import kotlinx.cinterop.reinterpret
+import kotlinx.cinterop.usePinned
+import platform.posix.uint8_tVar
 
 // https://datatracker.ietf.org/doc/rfc9106/
 actual class Argon2 actual constructor(
@@ -59,14 +61,19 @@ actual class Argon2 actual constructor(
     memScoped {
       checkArgon2Salt(salt)
       val result = ByteArray(hashSize)
+
+      @Suppress("UNCHECKED_CAST")
       val context = cValue<argon2_context> {
-        out = result.refTo(0).getPointer(memScope).reinterpret()
+        out = result.usePinned { it.addressOf(0) } as CPointer<uint8_tVar>
         outlen = hashSize.convert()
 
-        pwd = password.refTo(0).getPointer(memScope).reinterpret()
+        pwd = when {
+          password.isNotEmpty() -> password.usePinned { it.addressOf(0) } as CPointer<uint8_tVar>
+          else -> null
+        }
         pwdlen = password.size.convert()
 
-        this.salt = salt.refTo(0).getPointer(memScope).reinterpret()
+        this.salt = salt.usePinned { it.addressOf(0) } as CPointer<uint8_tVar>
         saltlen = salt.size.convert()
 
         t_cost = iterations.convert()

@@ -3,11 +3,13 @@ package diglol.crypto
 import diglol.crypto.internal.ed25519_CreatePublicKey
 import diglol.crypto.internal.ed25519_SignMessage
 import diglol.crypto.internal.ed25519_VerifySignature
+import diglol.crypto.internal.refToOrElse
+import kotlinx.cinterop.CValuesRef
+import kotlinx.cinterop.UByteVar
 import kotlinx.cinterop.convert
 import kotlinx.cinterop.cstr
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.refTo
-import kotlinx.cinterop.reinterpret
 import platform.posix.NULL
 
 // https://datatracker.ietf.org/doc/html/rfc8032
@@ -22,9 +24,9 @@ actual object Ed25519 : Dsa {
     val publicKey = ByteArray(KEY_SIZE)
     memScoped {
       ed25519_CreatePublicKey(
-        publicKey.refTo(0).getPointer(memScope).reinterpret(),
+        publicKey.refTo(0) as CValuesRef<UByteVar>,
         NULL,
-        privateKey.refTo(0).getPointer(memScope).reinterpret(),
+        privateKey.refTo(0) as CValuesRef<UByteVar>,
       )
     }
     return KeyPair(publicKey, privateKey)
@@ -37,10 +39,10 @@ actual object Ed25519 : Dsa {
     val signature = ByteArray(SIGN_SIZE)
     memScoped {
       ed25519_SignMessage(
-        signature.refTo(0).getPointer(memScope).reinterpret(),
-        (keyPair.privateKey + keyPair.publicKey).refTo(0).getPointer(memScope).reinterpret(),
+        signature.refTo(0) as CValuesRef<UByteVar>,
+        (keyPair.privateKey + keyPair.publicKey).refTo(0) as CValuesRef<UByteVar>,
         NULL,
-        (if (data.isEmpty()) "".cstr else data.refTo(0)).getPointer(memScope).reinterpret(),
+        data.refToOrElse(0, "".cstr) as CValuesRef<UByteVar>,
         data.size.convert()
       )
     }
@@ -56,9 +58,9 @@ actual object Ed25519 : Dsa {
     checkPublicKey(publicKey)
     memScoped {
       return ed25519_VerifySignature(
-        signature.refTo(0).getPointer(memScope).reinterpret(),
-        publicKey.refTo(0).getPointer(memScope).reinterpret(),
-        (if (data.isEmpty()) "".cstr else data.refTo(0)).getPointer(memScope).reinterpret(),
+        signature.refTo(0) as CValuesRef<UByteVar>,
+        publicKey.refTo(0) as CValuesRef<UByteVar>,
+        data.refToOrElse(0, "".cstr) as CValuesRef<UByteVar>,
         data.size.convert()
       ) == 1
     }

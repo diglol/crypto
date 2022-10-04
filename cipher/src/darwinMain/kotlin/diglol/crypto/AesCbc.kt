@@ -1,5 +1,6 @@
 package diglol.crypto
 
+import diglol.crypto.internal.refToOrElse
 import diglol.crypto.internal.selfOrCopyOf
 import diglol.crypto.random.nextBytes
 import kotlinx.cinterop.cValue
@@ -57,7 +58,7 @@ actual class AesCbc actual constructor(
       key.refTo(0),
       key.size.convert(),
       iv.refTo(0),
-      data.refTo(0),
+      data.refToOrElse(0),
       data.size.convert(),
       out.refTo(0),
       outSize.convert(),

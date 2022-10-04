@@ -1,5 +1,6 @@
 package diglol.crypto
 
+import diglol.crypto.internal.refToOrElse
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.CValuesRef
 import kotlinx.cinterop.UByteVar
@@ -33,22 +34,25 @@ actual class Hash actual constructor(
         shaFun = ::CC_SHA1
         shaLen = CC_SHA1_DIGEST_LENGTH
       }
+
       Type.SHA256 -> {
         shaFun = ::CC_SHA256
         shaLen = CC_SHA256_DIGEST_LENGTH
       }
+
       Type.SHA384 -> {
         shaFun = ::CC_SHA384
         shaLen = CC_SHA384_DIGEST_LENGTH
       }
+
       Type.SHA512 -> {
         shaFun = ::CC_SHA512
         shaLen = CC_SHA512_DIGEST_LENGTH
       }
     }
-    val macData = ByteArray(shaLen)
+    val result = ByteArray(shaLen)
     @Suppress("UNCHECKED_CAST")
-    shaFun(data.refTo(0), data.size.convert(), macData.refTo(0) as CValuesRef<UByteVar>)
-    return macData
+    shaFun(data.refToOrElse(0), data.size.convert(), result.refTo(0) as CValuesRef<UByteVar>)
+    return result
   }
 }

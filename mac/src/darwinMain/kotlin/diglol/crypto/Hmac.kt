@@ -1,5 +1,6 @@
 package diglol.crypto
 
+import diglol.crypto.internal.refToOrElse
 import diglol.crypto.internal.selfOrCopyOf
 import kotlinx.cinterop.convert
 import kotlinx.cinterop.refTo
@@ -40,8 +41,12 @@ actual class Hmac actual constructor(
     checkMacSize(macSize)
     val mac = ByteArray(size())
     CCHmac(
-      type.typeName(), key.refTo(0), key.size.convert(), data.refTo(0),
-      data.size.convert(), mac.refTo(0)
+      type.typeName(),
+      key.refTo(0),
+      key.size.convert(),
+      data.refToOrElse(0),
+      data.size.convert(),
+      mac.refTo(0)
     )
     return mac.selfOrCopyOf(macSize)
   }
