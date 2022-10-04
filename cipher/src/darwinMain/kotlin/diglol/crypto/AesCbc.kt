@@ -42,6 +42,7 @@ actual class AesCbc actual constructor(
     return doFinal(kCCDecrypt, key, iv, rawCiphertext)
   }
 
+  @Suppress("OPT_IN_USAGE")
   private fun doFinal(
     op: CCOperation,
     key: ByteArray,

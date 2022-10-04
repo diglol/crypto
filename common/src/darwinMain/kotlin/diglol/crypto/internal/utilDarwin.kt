@@ -15,6 +15,7 @@ fun COpaquePointer?.toByteArray(size: Int): ByteArray {
   return if (this != null && size != 0) {
     ByteArray(size).apply {
       usePinned {
+        @Suppress("OPT_IN_USAGE")
         memcpy(it.addressOf(0), this@toByteArray, size.convert())
       }
     }
@@ -23,13 +24,15 @@ fun COpaquePointer?.toByteArray(size: Int): ByteArray {
   }
 }
 
+@Suppress("OPT_IN_USAGE")
 fun NSData.toByteArray(): ByteArray = bytes.toByteArray(length.convert())
 
-fun ByteArray.toNSData(freeWhenDone: Boolean = false): NSData = this.usePinned {
+fun ByteArray.toNSData(freeWhenDone: Boolean = false): NSData = usePinned {
   val bytesPointer = when {
     isNotEmpty() -> it.addressOf(0)
     else -> null
   }
+  @Suppress("OPT_IN_USAGE")
   NSData.dataWithBytesNoCopy(
     bytes = bytesPointer,
     length = size.convert(),

@@ -14,7 +14,6 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.cValue
 import kotlinx.cinterop.convert
-import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.usePinned
 import platform.posix.uint8_tVar
 
@@ -57,38 +56,37 @@ actual class Argon2 actual constructor(
     checkParams()
   }
 
-  actual override suspend fun deriveKey(password: ByteArray, salt: ByteArray): ByteArray =
-    memScoped {
-      checkArgon2Salt(salt)
-      val result = ByteArray(hashSize)
+  actual override suspend fun deriveKey(password: ByteArray, salt: ByteArray): ByteArray {
+    checkArgon2Salt(salt)
+    val result = ByteArray(hashSize)
 
-      @Suppress("UNCHECKED_CAST")
-      val context = cValue<argon2_context> {
-        out = result.usePinned { it.addressOf(0) } as CPointer<uint8_tVar>
-        outlen = hashSize.convert()
+    @Suppress("UNCHECKED_CAST")
+    val context = cValue<argon2_context> {
+      out = result.usePinned { it.addressOf(0) } as CPointer<uint8_tVar>
+      outlen = hashSize.convert()
 
-        pwd = when {
-          password.isNotEmpty() -> password.usePinned { it.addressOf(0) } as CPointer<uint8_tVar>
-          else -> null
-        }
-        pwdlen = password.size.convert()
-
-        this.salt = salt.usePinned { it.addressOf(0) } as CPointer<uint8_tVar>
-        saltlen = salt.size.convert()
-
-        t_cost = iterations.convert()
-        m_cost = memory.convert()
-
-        lanes = parallelism.convert()
-        threads = parallelism.convert()
-
-        version = this@Argon2.version.version()
+      pwd = when {
+        password.isNotEmpty() -> password.usePinned { it.addressOf(0) } as CPointer<uint8_tVar>
+        else -> null
       }
-      val errorCode = argon2_ctx(context, type.type())
-      if (errorCode == ARGON2_OK) {
-        return result
-      } else {
-        throw Error("Argon2 ${type.name} error: $errorCode")
-      }
+      pwdlen = password.size.convert()
+
+      this.salt = salt.usePinned { it.addressOf(0) } as CPointer<uint8_tVar>
+      saltlen = salt.size.convert()
+
+      t_cost = iterations.convert()
+      m_cost = memory.convert()
+
+      lanes = parallelism.convert()
+      threads = parallelism.convert()
+
+      version = this@Argon2.version.version()
     }
+    val errorCode = argon2_ctx(context, type.type())
+    if (errorCode == ARGON2_OK) {
+      return result
+    } else {
+      throw Error("Argon2 ${type.name} error: $errorCode")
+    }
+  }
 }

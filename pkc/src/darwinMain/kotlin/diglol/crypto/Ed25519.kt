@@ -8,7 +8,6 @@ import kotlinx.cinterop.CValuesRef
 import kotlinx.cinterop.UByteVar
 import kotlinx.cinterop.convert
 import kotlinx.cinterop.cstr
-import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.refTo
 import platform.posix.NULL
 
@@ -22,13 +21,11 @@ actual object Ed25519 : Dsa {
   actual override suspend fun generateKeyPair(privateKey: ByteArray): KeyPair {
     checkPrivateKey(privateKey)
     val publicKey = ByteArray(KEY_SIZE)
-    memScoped {
-      ed25519_CreatePublicKey(
-        publicKey.refTo(0) as CValuesRef<UByteVar>,
-        NULL,
-        privateKey.refTo(0) as CValuesRef<UByteVar>,
-      )
-    }
+    ed25519_CreatePublicKey(
+      publicKey.refTo(0) as CValuesRef<UByteVar>,
+      NULL,
+      privateKey.refTo(0) as CValuesRef<UByteVar>,
+    )
     return KeyPair(publicKey, privateKey)
   }
 
@@ -37,15 +34,14 @@ actual object Ed25519 : Dsa {
 
   actual suspend fun sign(keyPair: KeyPair, data: ByteArray): ByteArray {
     val signature = ByteArray(SIGN_SIZE)
-    memScoped {
-      ed25519_SignMessage(
-        signature.refTo(0) as CValuesRef<UByteVar>,
-        (keyPair.privateKey + keyPair.publicKey).refTo(0) as CValuesRef<UByteVar>,
-        NULL,
-        data.refToOrElse(0, "".cstr) as CValuesRef<UByteVar>,
-        data.size.convert()
-      )
-    }
+    @Suppress("UNCHECKED_CAST", "OPT_IN_USAGE")
+    ed25519_SignMessage(
+      signature.refTo(0) as CValuesRef<UByteVar>,
+      (keyPair.privateKey + keyPair.publicKey).refTo(0) as CValuesRef<UByteVar>,
+      NULL,
+      data.refToOrElse(0, "".cstr) as CValuesRef<UByteVar>,
+      data.size.convert()
+    )
     return signature
   }
 
@@ -56,13 +52,12 @@ actual object Ed25519 : Dsa {
   ): Boolean {
     checkSignature(signature)
     checkPublicKey(publicKey)
-    memScoped {
-      return ed25519_VerifySignature(
-        signature.refTo(0) as CValuesRef<UByteVar>,
-        publicKey.refTo(0) as CValuesRef<UByteVar>,
-        data.refToOrElse(0, "".cstr) as CValuesRef<UByteVar>,
-        data.size.convert()
-      ) == 1
-    }
+    @Suppress("UNCHECKED_CAST", "OPT_IN_USAGE")
+    return ed25519_VerifySignature(
+      signature.refTo(0) as CValuesRef<UByteVar>,
+      publicKey.refTo(0) as CValuesRef<UByteVar>,
+      data.refToOrElse(0, "".cstr) as CValuesRef<UByteVar>,
+      data.size.convert()
+    ) == 1
   }
 }

@@ -20,6 +20,7 @@ actual fun nextBytes(size: Int): ByteArray {
       val ptr = it.addressOf(0)
       val file = fopen("/dev/urandom", "rb")
       if (file != null) {
+        @Suppress("OPT_IN_USAGE")
         fread(ptr, 1.convert(), this.size.convert(), file)
         for (n in this.indices) this[n] = ptr[n]
         fclose(file)

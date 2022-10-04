@@ -336,7 +336,7 @@ class HmacTest {
     hmacSha1Samples.forEachIndexed { index, (key, data, expect) ->
       val hmac = Hmac(Hmac.Type.SHA1, key)
       val actual = hmac.compute(data)
-      assertContentEquals(expect, actual, actual.encodeHexToString())
+      assertContentEquals(expect, actual)
       assertTrue(hmac.verify(expect!!, data), index.toString())
     }
   }
@@ -346,7 +346,7 @@ class HmacTest {
     hmacSha256Samples.forEachIndexed { index, (key, data, expect) ->
       val hmac = Hmac(Hmac.Type.SHA256, key)
       val actual = hmac.compute(data)
-      assertContentEquals(expect, actual, actual.encodeHexToString())
+      assertContentEquals(expect, actual)
       assertTrue(hmac.verify(expect!!, data), index.toString())
     }
   }
@@ -356,7 +356,7 @@ class HmacTest {
     hmacSha384Samples.forEachIndexed { index, (key, data, expect) ->
       val hmac = Hmac(Hmac.Type.SHA384, key)
       val actual = hmac.compute(data)
-      assertContentEquals(expect, actual, actual.encodeHexToString())
+      assertContentEquals(expect, actual)
       assertTrue(hmac.verify(expect!!, data), index.toString())
     }
   }
@@ -366,7 +366,7 @@ class HmacTest {
     hmacSha512Samples.forEachIndexed { index, (key, data, expect) ->
       val hmac = Hmac(Hmac.Type.SHA512, key)
       val actual = hmac.compute(data)
-      assertContentEquals(expect, actual, actual.encodeHexToString())
+      assertContentEquals(expect, actual)
       assertTrue(hmac.verify(expect!!, data), index.toString())
     }
   }

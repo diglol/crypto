@@ -17,6 +17,7 @@ import platform.Security.kSecRandomDefault
 actual fun nextInt(bound: Int): Int = memScoped {
   checkBound(bound)
   val value = cValue<IntVar>().ptr
+  @Suppress("OPT_IN_USAGE")
   SecRandomCopyBytes(kSecRandomDefault, sizeOf<IntVar>().convert(), value)
   return abs(value.pointed.value % bound)
 }
@@ -26,7 +27,8 @@ actual fun nextBytes(size: Int): ByteArray {
     return emptyBytes
   }
   return ByteArray(size).apply {
-    this.usePinned {
+    usePinned {
+      @Suppress("OPT_IN_USAGE")
       SecRandomCopyBytes(kSecRandomDefault, size.convert(), it.addressOf(0))
     }
   }

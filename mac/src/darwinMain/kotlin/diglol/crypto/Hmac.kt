@@ -40,6 +40,7 @@ actual class Hmac actual constructor(
   actual override suspend fun compute(data: ByteArray, macSize: Int): ByteArray {
     checkMacSize(macSize)
     val mac = ByteArray(size())
+    @Suppress("OPT_IN_USAGE")
     CCHmac(
       type.typeName(),
       key.refTo(0),
