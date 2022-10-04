@@ -47,6 +47,10 @@ actual class AesCbc actual constructor(
     iv: ByteArray,
     data: ByteArray
   ): ByteArray = memScoped {
+    val dataIn = when {
+      data.isNotEmpty() -> data.refTo(0)
+      else -> null
+    }
     val outSize = data.size + (if (op == kCCEncrypt) kCCBlockSizeAES128.toInt() else 0)
     val out = ByteArray(outSize)
     val dataOutMoved = cValue<size_tVar>().ptr
@@ -57,7 +61,7 @@ actual class AesCbc actual constructor(
       key.refTo(0),
       key.size.convert(),
       iv.refTo(0),
-      data.refTo(0),
+      dataIn,
       data.size.convert(),
       out.refTo(0),
       outSize.convert(),
