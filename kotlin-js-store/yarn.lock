@@ -1798,10 +1798,10 @@ void-elements@^2.0.0:
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
   integrity sha512-qZKX4RnBzH2ugr8Lxa7x+0V6XD9Sb/ouARtiasEQCHB1EVU4NXtmHsDDrx1dO4ne5fc3J6EW05BP1Dl0z0iung==
 
-wasm-feature-detect@1.2.11:
-  version "1.2.11"
-  resolved "https://registry.yarnpkg.com/wasm-feature-detect/-/wasm-feature-detect-1.2.11.tgz#e21992fd1f1d41a47490e392a5893cb39d81e29e"
-  integrity sha512-HUqwaodrQGaZgz1lZaNioIkog9tkeEJjrM3eq4aUL04whXOVDRc/o2EGb/8kV0QX411iAYWEqq7fMBmJ6dKS6w==
+wasm-feature-detect@1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/wasm-feature-detect/-/wasm-feature-detect-1.4.0.tgz#45a26f8740da8aaa0b5af2529facd9db0892ab87"
+  integrity sha512-9z4Yk3SeHQdb7E4g6ywQYcUt1CHr9HFiCIA5h29rv0gmW4lCE5dnDhheiJI5qzVPSDnXHyXQPLGPyucsuIzacw==
 
 watchpack@^2.3.1:
   version "2.4.0"
