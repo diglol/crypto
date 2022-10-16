@@ -5,6 +5,8 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.dokka.gradle.DokkaMultiModuleTask
 import org.jetbrains.dokka.gradle.DokkaTaskPartial
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetWithSimulatorTests
 
 buildscript {
   repositories {
@@ -45,6 +47,21 @@ subprojects {
         isExplainIssues = false
 
         isCheckReleaseBuilds = false
+      }
+    }
+  }
+
+  // TODO Remove when fixed
+  plugins.withId("org.jetbrains.kotlin.multiplatform") {
+    extensions.configure<KotlinMultiplatformExtension> {
+      targets.withType<KotlinNativeTargetWithSimulatorTests> {
+        testRuns["test"].apply {
+          when {
+            targetName.startsWith("watch") -> {
+              deviceId = "Apple Watch Series 5 (44mm)"
+            }
+          }
+        }
       }
     }
   }
