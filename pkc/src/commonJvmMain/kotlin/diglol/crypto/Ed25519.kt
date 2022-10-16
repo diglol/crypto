@@ -148,7 +148,10 @@ actual object Ed25519 : Dsa {
     }
   }
 
+  @JvmField
   actual val KEY_SIZE: Int = ED25519_KEY_SIZE
+
+  @JvmField
   actual val SIGN_SIZE: Int = ED25519_SIGN_SIZE
 
   actual override suspend fun generateKeyPair(): KeyPair = generateKeyPair(generatePrivateKey())

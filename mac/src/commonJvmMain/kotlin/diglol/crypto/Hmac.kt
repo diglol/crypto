@@ -34,6 +34,7 @@ actual class Hmac actual constructor(
 
   actual override fun size(): Int = type.size()
 
+  @JvmOverloads
   actual override suspend fun compute(data: ByteArray, macSize: Int): ByteArray {
     checkMacSize(macSize)
     hmac.update(data)

@@ -1,8 +1,11 @@
+@file:JvmName("Random")
+
 package diglol.crypto.random
 
 import diglol.crypto.internal.emptyBytes
 import java.security.SecureRandom
 
+@JvmOverloads
 actual fun nextInt(bound: Int): Int {
   checkBound(bound)
   return localRandom.get().nextInt(bound)

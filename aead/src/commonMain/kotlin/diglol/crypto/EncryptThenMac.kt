@@ -2,9 +2,10 @@ package diglol.crypto
 
 import diglol.crypto.internal.plusByteArrays
 import diglol.crypto.internal.toByteArray
+import kotlin.jvm.JvmOverloads
 
 // https://datatracker.ietf.org/doc/html/draft-mcgrew-aead-aes-cbc-hmac-sha2-05
-class EncryptThenMac(
+class EncryptThenMac @JvmOverloads constructor(
   private val cipher: Cipher,
   private val mac: Mac,
   private val macSize: Int = mac.size()

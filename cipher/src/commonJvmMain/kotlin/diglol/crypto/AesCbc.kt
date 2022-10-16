@@ -6,7 +6,7 @@ import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
 // https://datatracker.ietf.org/doc/html/rfc3602
-actual class AesCbc actual constructor(
+actual class AesCbc @JvmOverloads actual constructor(
   internal actual val key: ByteArray,
   internal actual val iv: ByteArray?
 ) : Cipher {
@@ -48,6 +48,8 @@ actual class AesCbc actual constructor(
         return CipherJvm.getInstance("AES/CBC/PKCS5Padding")
       }
     }
+
+    @JvmField
     actual val IV_SIZE: Int = AES_CBC_IV_SIZE
   }
 }

@@ -1,10 +1,11 @@
 package diglol.crypto.otp
 
 import diglol.crypto.Hmac
+import kotlin.jvm.JvmOverloads
 import kotlinx.datetime.Clock
 
 // https://datatracker.ietf.org/doc/html/rfc6238
-class Totp(
+class Totp @JvmOverloads constructor(
   val hmacType: Hmac.Type,
   val hmacKey: ByteArray,
   val period: Int = 30, // Second

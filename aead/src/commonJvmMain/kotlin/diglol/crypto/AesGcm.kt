@@ -6,7 +6,7 @@ import javax.crypto.spec.GCMParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
 // https://datatracker.ietf.org/doc/html/rfc5288
-actual class AesGcm actual constructor(
+actual class AesGcm @JvmOverloads actual constructor(
   internal actual val key: ByteArray,
   internal actual val iv: ByteArray?
 ) : Aead {
@@ -60,7 +60,11 @@ actual class AesGcm actual constructor(
         return CipherJvm.getInstance("AES/GCM/NoPadding")
       }
     }
+
+    @JvmField
     actual val IV_SIZE: Int = AES_GCM_IV_SIZE
+
+    @JvmField
     actual val TAG_SIZE: Int = AES_GCM_TAG_SIZE
   }
 }

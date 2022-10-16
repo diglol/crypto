@@ -1,6 +1,7 @@
 package diglol.crypto
 
 import diglol.crypto.internal.selfOrCopyOf
+import kotlin.jvm.JvmOverloads
 import kotlin.math.min
 
 // https://datatracker.ietf.org/doc/html/rfc7539
@@ -14,6 +15,7 @@ class Poly1305(private val key: ByteArray) : Mac {
 
   override fun size(): Int = MAC_TAG_SIZE
 
+  @JvmOverloads
   override suspend fun compute(data: ByteArray, macSize: Int): ByteArray {
     checkMacSize(macSize)
     var h0: Long = 0

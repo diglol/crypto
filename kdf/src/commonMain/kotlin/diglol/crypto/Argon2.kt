@@ -1,7 +1,9 @@
 package diglol.crypto
 
+import kotlin.jvm.JvmOverloads
+
 // https://datatracker.ietf.org/doc/rfc9106/
-expect class Argon2(
+expect class Argon2 @JvmOverloads constructor(
   version: Version,
   type: Type,
   iterations: Int,

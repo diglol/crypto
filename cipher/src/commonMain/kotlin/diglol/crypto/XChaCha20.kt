@@ -3,10 +3,11 @@ package diglol.crypto
 import diglol.crypto.internal.toByteArray
 import diglol.crypto.internal.toInt
 import diglol.crypto.random.nextBytes
+import kotlin.jvm.JvmOverloads
 
 // https://datatracker.ietf.org/doc/html/draft-arciszewski-xchacha-01
 // https://github.com/google/tink/blob/master/java_src/src/main/java/com/google/crypto/tink/subtle/XChaCha20.java
-class XChaCha20(
+class XChaCha20 @JvmOverloads constructor(
   key: ByteArray,
   private val nonce: ByteArray? = null,
   private val initialCounter: Int = 1,
