@@ -1,9 +1,10 @@
 package diglol.crypto.otp
 
 import diglol.crypto.Hmac
+import kotlin.jvm.JvmOverloads
 
 // https://datatracker.ietf.org/doc/html/rfc4226
-class Hotp(
+class Hotp @JvmOverloads constructor(
   val hmacType: Hmac.Type,
   val hmacKey: ByteArray,
   var counter: Long = 0L,

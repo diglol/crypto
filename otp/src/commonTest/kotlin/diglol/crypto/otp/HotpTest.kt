@@ -1,6 +1,7 @@
 package diglol.crypto.otp
 
 import diglol.crypto.Hmac
+import diglol.crypto.otp.Otp.Companion.toOtp
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue

@@ -4,7 +4,7 @@ import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.PBEKeySpec
 
 // https://datatracker.ietf.org/doc/html/rfc6070
-actual class Pbkdf2 actual constructor(
+actual class Pbkdf2 @JvmOverloads actual constructor(
   internal actual val hmacType: Hmac.Type,
   internal actual val iterations: Int,
   internal actual val keySize: Int

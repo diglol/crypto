@@ -9,6 +9,7 @@ actual object X25519 : Dh {
   private const val C_A = 486662
   private const val C_A24 = (C_A + 2) / 4
 
+  @JvmField
   actual val KEY_SIZE: Int = X25519_KEY_SIZE
 
   actual override suspend fun generateKeyPair(): KeyPair = generateKeyPair(generatePrivateKey())

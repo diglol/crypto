@@ -5,6 +5,7 @@ import diglol.crypto.internal.toByteArray
 import diglol.encoding.decodeBase32ToBytes
 import diglol.encoding.encodeBase32ToString
 import kotlin.experimental.and
+import kotlin.jvm.JvmStatic
 import kotlin.math.pow
 
 abstract class Otp(
@@ -43,44 +44,47 @@ abstract class Otp(
     append("&algorithm=${hmacType.name}")
     append("&digits=$codeLength")
   }
-}
 
-fun String.toOtp(): Otp? {
-  val schema = substring(0, 10)
-  if (schema != "otpauth://") {
-    return null
-  }
-  val otpType = substring(10, 15)
-  if ("hotp/" == otpType || "totp/" == otpType) {
-    val segments = substring(15, length).split("?")
-    if (segments.size < 2) {
-      return null
-    }
-    val labels = segments[0].split(":")
-    if (labels.size < 2) {
-      return null
-    }
-    val issuer = labels[0]
-    val accountName = labels[1]
-    val parameters = mutableMapOf<String, String>()
-    segments[1].split("&").forEach {
-      val pair = it.split("=")
-      if (pair.size > 1) {
-        parameters[pair[0]] = pair[1]
+  companion object {
+    @JvmStatic
+    fun String.toOtp(): Otp? {
+      val schema = substring(0, 10)
+      if (schema != "otpauth://") {
+        return null
       }
-    }
-    val base32Secret = parameters["secret"] ?: return null
-    val secret = base32Secret.decodeBase32ToBytes() ?: return null
-    val algorithmName = parameters["algorithm"] ?: ""
-    val algorithm = Hmac.Type.values().find { it.name == algorithmName } ?: Hmac.Type.SHA1
-    val digits = parameters["digits"]?.toIntOrNull() ?: 6
-    return if ("hotp/" == otpType) {
-      val counter = parameters["counter"]?.toLongOrNull() ?: 0
-      Hotp(algorithm, secret, counter, digits, issuer, accountName)
-    } else {
-      val period = parameters["period"]?.toIntOrNull() ?: 30
-      Totp(algorithm, secret, period, digits, issuer, accountName)
+      val otpType = substring(10, 15)
+      if ("hotp/" == otpType || "totp/" == otpType) {
+        val segments = substring(15, length).split("?")
+        if (segments.size < 2) {
+          return null
+        }
+        val labels = segments[0].split(":")
+        if (labels.size < 2) {
+          return null
+        }
+        val issuer = labels[0]
+        val accountName = labels[1]
+        val parameters = mutableMapOf<String, String>()
+        segments[1].split("&").forEach {
+          val pair = it.split("=")
+          if (pair.size > 1) {
+            parameters[pair[0]] = pair[1]
+          }
+        }
+        val base32Secret = parameters["secret"] ?: return null
+        val secret = base32Secret.decodeBase32ToBytes() ?: return null
+        val algorithmName = parameters["algorithm"] ?: ""
+        val algorithm = Hmac.Type.values().find { it.name == algorithmName } ?: Hmac.Type.SHA1
+        val digits = parameters["digits"]?.toIntOrNull() ?: 6
+        return if ("hotp/" == otpType) {
+          val counter = parameters["counter"]?.toLongOrNull() ?: 0
+          Hotp(algorithm, secret, counter, digits, issuer, accountName)
+        } else {
+          val period = parameters["period"]?.toIntOrNull() ?: 30
+          Totp(algorithm, secret, period, digits, issuer, accountName)
+        }
+      }
+      return null
     }
   }
-  return null
 }

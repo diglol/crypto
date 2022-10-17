@@ -5,10 +5,14 @@ import diglol.crypto.Poly1305.Companion.MAC_TAG_SIZE
 import diglol.crypto.XChaCha20.Companion.NONCE_SIZE
 import diglol.crypto.internal.plusByteArrays
 import diglol.crypto.internal.toByteArray
+import kotlin.jvm.JvmOverloads
 
 // https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-xchacha
 // https://github.com/google/tink/blob/master/java_src/src/main/java/com/google/crypto/tink/subtle/ChaCha20Poly1305Base.java
-class XChaCha20Poly1305(key: ByteArray, private val none: ByteArray? = null) : Aead {
+class XChaCha20Poly1305 @JvmOverloads constructor(
+  key: ByteArray,
+  private val none: ByteArray? = null
+) : Aead {
   private val chacha20 = XChaCha20(key, none, 1)
   private val macKeyChaCha20 = XChaCha20(key, none, 0)
 
