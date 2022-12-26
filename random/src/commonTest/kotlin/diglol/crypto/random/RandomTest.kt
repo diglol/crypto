@@ -3,6 +3,7 @@ package diglol.crypto.random
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 import kotlin.test.fail
 
@@ -29,6 +30,11 @@ class RandomTest {
   @Test
   fun nextEmptyBytes() {
     assertTrue(nextBytes(0).isEmpty())
+  }
+
+  fun nextBytesCheckLastBytes() {
+    assertFalse(nextBytes(4).takeLast(4).all { it.toInt() == 0 })
+    assertFalse(nextBytes(65540).takeLast(4).all { it.toInt() == 0 })
   }
 
   @Test
