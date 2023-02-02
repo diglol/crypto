@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
   kotlin("multiplatform")
-  kotlin("plugin.allopen") version libs.versions.kotlin
+  kotlin("plugin.allopen") version 1.8.10
   id("org.jetbrains.kotlinx.benchmark")
 }
 
