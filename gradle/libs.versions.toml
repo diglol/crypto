@@ -1,20 +1,20 @@
 [versions]
-compileSdk = "31"
+compileSdk = "33"
 minSdk = "21"
-targetSdk = "31"
-kotlin = "1.7.10"
-benchmark = "0.4.4"
+targetSdk = "33"
+kotlin = "1.8.10"
+benchmark = "0.4.7"
 kotlinx-coroutines = "1.6.4"
 
 [libraries]
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test" }
-dokka-gradle-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "kotlin" }
-mavenPublish-gradle-plugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version = "0.21.0" }
+dokka-gradle-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version = "1.7.20" }
+mavenPublish-gradle-plugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version = "0.24.0" }
 benchmark-runtime = { module = "org.jetbrains.kotlinx:kotlinx-benchmark-runtime", version.ref = "benchmark" }
 benchmark-gradle-plugin = { module = "org.jetbrains.kotlinx:kotlinx-benchmark-plugin", version.ref = "benchmark" }
 jmh-core = { module = "org.openjdk.jmh:jmh-core", version = "1.23" }
-android-gradle-plugin = { module = "com.android.tools.build:gradle", version = "7.1.2" }
+android-gradle-plugin = { module = "com.android.tools.build:gradle", version = "7.3.1" }
 cklib-gradle-plugin = { module = "co.touchlab:cklib-gradle-plugin", version = "0.2.4" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
@@ -22,5 +22,5 @@ kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version 
 diglol-encoding = { module = "com.diglol.encoding:encoding", version = "0.1.0" }
 argon2-jvm = { module = "de.mkammerer:argon2-jvm", version = "2.11" }
 argon2-android = { module = "org.signal:argon2", version = "13.1" }
-androidx-test-runner = { module = "androidx.test:runner", version = "1.4.0" }
+androidx-test-runner = { module = "androidx.test:runner", version = "1.5.1" }
 junit = { module = "junit:junit", version = "4.13.2" }

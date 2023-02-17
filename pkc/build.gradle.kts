@@ -17,7 +17,7 @@ kotlin {
     publishLibraryVariants("release")
   }
   jvm()
-  js(BOTH) {
+  js(IR) {
     browser()
     nodejs()
   }
@@ -26,13 +26,7 @@ kotlin {
   macosArm64()
   iosX64()
   iosArm64()
-  iosArm32()
   iosSimulatorArm64()
-  watchosArm32()
-  watchosArm64()
-  watchosSimulatorArm64()
-  watchosX86()
-  watchosX64()
   tvosArm64()
   tvosSimulatorArm64()
   tvosX64()
@@ -82,7 +76,7 @@ kotlin {
     val androidMain by sourceSets.getting {
       dependsOn(commonJvmMain)
     }
-    val androidTest by sourceSets.getting {
+    val androidInstrumentedTest by sourceSets.getting {
       dependsOn(androidMain)
       dependsOn(commonJvmTest)
     }

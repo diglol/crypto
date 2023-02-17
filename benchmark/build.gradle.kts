@@ -12,10 +12,7 @@ allOpen {
 
 kotlin {
   jvm()
-  js("jsIr", IR) {
-    nodejs()
-  }
-  js("js", LEGACY) {
+  js(IR) {
     nodejs()
   }
 
@@ -43,9 +40,6 @@ kotlin {
     }
 
     val jsMain by sourceSets.getting
-    val jsIrMain by sourceSets.getting {
-      dependsOn(jsMain)
-    }
 
     val nativeMain by sourceSets.creating {
       dependsOn(commonMain)
@@ -78,13 +72,12 @@ benchmark {
       advanced("nativeFork", "perBenchmark")
       reportFormat = "text"
     }
+  }
 
-    targets {
-      register("jvm")
-      register("jsIr")
-      register("js")
-      register("macosX64")
-      register("macosArm64")
-    }
+  targets {
+    register("jvm")
+    register("js")
+    register("macosX64")
+    register("macosArm64")
   }
 }

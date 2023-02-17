@@ -17,7 +17,7 @@ kotlin {
     publishLibraryVariants("release")
   }
   jvm()
-  js(BOTH) {
+  js(IR) {
     browser()
     nodejs()
   }
@@ -26,13 +26,7 @@ kotlin {
   macosArm64()
   iosX64()
   iosArm64()
-  iosArm32()
   iosSimulatorArm64()
-  watchosArm32()
-  watchosArm64()
-  watchosSimulatorArm64()
-  watchosX86()
-  watchosX64()
   tvosArm64()
   tvosSimulatorArm64()
   tvosX64()
@@ -87,7 +81,7 @@ kotlin {
         api(libs.argon2.android)
       }
     }
-    val androidTest by sourceSets.getting {
+    val androidInstrumentedTest by sourceSets.getting {
       dependsOn(androidMain)
       dependsOn(commonJvmTest)
     }
@@ -95,7 +89,7 @@ kotlin {
     val jsMain by sourceSets.getting {
       dependencies {
         api(libs.diglol.encoding)
-        api(npm("wasm-feature-detect", "1.2.11"))
+        api(npm("wasm-feature-detect", "1.5.0"))
         api(npm("argon2-browser", "1.18.0"))
         api(npm("base64-loader", "1.0.0"))
       }
