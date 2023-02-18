@@ -81,7 +81,7 @@ kotlin {
         api(libs.argon2.android)
       }
     }
-    val androidInstrumentedTest by sourceSets.getting {
+    val androidUnitTest by sourceSets.getting {
       dependsOn(androidMain)
       dependsOn(commonJvmTest)
     }
