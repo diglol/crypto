@@ -7,6 +7,9 @@ import org.jetbrains.dokka.gradle.DokkaMultiModuleTask
 import org.jetbrains.dokka.gradle.DokkaTaskPartial
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetWithSimulatorTests
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnLockMismatchReport
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
 
 buildscript {
   repositories {
@@ -94,6 +97,14 @@ apply(plugin = "org.jetbrains.dokka")
 tasks.withType<DokkaMultiModuleTask> {
   outputDirectory.set(rootProject.file("build/dokka/html"))
   failOnWarning.set(true)
+}
+
+// TODO remove if https://youtrack.jetbrains.com/issue/KT-55701 provides a better
+rootProject.plugins.withType(YarnPlugin::class.java) {
+  rootProject.the<YarnRootExtension>().yarnLockMismatchReport =
+    YarnLockMismatchReport.WARNING // NONE | FAIL
+  rootProject.the<YarnRootExtension>().reportNewYarnLock = false // true
+  rootProject.the<YarnRootExtension>().yarnLockAutoReplace = false // true
 }
 
 allprojects {
