@@ -78,7 +78,7 @@ kotlin {
     val androidMain by sourceSets.getting {
       dependsOn(commonJvmMain)
     }
-    val androidInstrumentedTest by sourceSets.getting {
+    val androidUnitTest by sourceSets.getting {
       dependsOn(androidMain)
       dependsOn(commonJvmTest)
     }
