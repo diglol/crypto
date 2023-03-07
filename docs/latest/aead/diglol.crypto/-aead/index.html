@@ -38,7 +38,10 @@
     </div>
     <div class="pull-right d-flex">
         <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":aead:dokkaHtmlPartial/commonJvmMain">commonJvm</button>
                 <button class="platform-tag platform-selector common-like" data-active="" data-filter=":aead:dokkaHtmlPartial/commonMain">common</button>
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":aead:dokkaHtmlPartial/darwinMain">darwin</button>
+                <button class="platform-tag platform-selector js-like" data-active="" data-filter=":aead:dokkaHtmlPartial/jsMain">js</button>
         </div>
         <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
         <div id="searchBar"></div>
@@ -49,65 +52,96 @@
         <div id="sideMenu"></div>
     </div>
     <div id="main">
-<div class="main-content" data-page-type="classlike" id="content" pageids="aead::diglol.crypto/Aead///PointingToDeclaration//1007142892">
+<div class="main-content" id="content" pageids="aead::diglol.crypto/Aead///PointingToDeclaration//1007142892">
   <div class="breadcrumbs"><a href="../../index.html">aead</a><span class="delimiter">/</span><a href="../index.html">diglol.crypto</a><span class="delimiter">/</span><span class="current">Aead</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>Aead</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":aead:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">Aead</a></div><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":aead:dokkaHtmlPartial/commonMain" data-filterable-set=":aead:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-encrypt-then-mac/index.html">EncryptThenMac</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":aead:dokkaHtmlPartial/commonMain" data-filterable-set=":aead:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-x-cha-cha20-poly1305/index.html">XChaCha20Poly1305</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":aead:dokkaHtmlPartial/commonMain" data-filterable-set=":aead:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-aes-gcm/index.html">AesGcm</a></div></span></div><div></div></div></div></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":aead:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">Aead</a></div></div></div>
   </div>
   <div class="tabbedcontent">
-    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button></div>
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Inheritors">Inheritors</button></div>
     <div class="tabs-section-body">
-      <div data-togglable="TYPE">
-        <h2 class="">Types</h2>
-        <div class="table"><a data-name="191302165%2FClasslikes%2F1007142892" anchor-label="Alg" id="191302165%2FClasslikes%2F1007142892" data-filterable-set=":aead:dokkaHtmlPartial/commonMain"></a>
-          <div class="table-row" data-filterable-current=":aead:dokkaHtmlPartial/commonMain" data-filterable-set=":aead:dokkaHtmlPartial/commonMain">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="-alg/index.html"><span><span>Alg</span></span></a></div>
+      <h2 class="">Types</h2>
+      <div class="table" data-togglable="Types"><a data-name="191302165%2FClasslikes%2F1007142892" anchor-label="Alg" id="191302165%2FClasslikes%2F1007142892" data-filterable-set=":aead:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":aead:dokkaHtmlPartial/commonMain" data-filterable-set=":aead:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="-alg/index.html"><span><span>Alg</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="191302165%2FClasslikes%2F1007142892"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":aead:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-alg/index.html">Alg</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-alg/index.html">Aead.Alg</a><span class="token operator">&gt; </span></div></div></div>
-                </div>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":aead:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-alg/index.html">Alg</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-alg/index.html">Aead.Alg</a><span class="token operator">&gt; </span></div></div></div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div data-togglable="FUNCTION">
-        <h2 class="">Functions</h2>
-        <div class="table"><a data-name="1790975342%2FFunctions%2F1007142892" anchor-label="decrypt" id="1790975342%2FFunctions%2F1007142892" data-filterable-set=":aead:dokkaHtmlPartial/commonMain"></a>
-          <div class="table-row" data-filterable-current=":aead:dokkaHtmlPartial/commonMain" data-filterable-set=":aead:dokkaHtmlPartial/commonMain">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="decrypt.html"><span><span>decrypt</span></span></a></div>
+      <h2 class="">Functions</h2>
+      <div class="table" data-togglable="Functions"><a data-name="1790975342%2FFunctions%2F1007142892" anchor-label="decrypt" id="1790975342%2FFunctions%2F1007142892" data-filterable-set=":aead:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":aead:dokkaHtmlPartial/commonMain" data-filterable-set=":aead:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="decrypt.html"><span><span>decrypt</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1790975342%2FFunctions%2F1007142892"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":aead:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="decrypt.html"><span class="token function">decrypt</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">ciphertext<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html">ByteArray</a><span class="token punctuation">, </span></span><span class="parameter ">associatedData<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html">ByteArray</a><span class="token operator"> = </span>emptyBytes</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html">ByteArray</a></div></div></div>
-                </div>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":aead:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="decrypt.html"><span class="token function">decrypt</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">ciphertext<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html">ByteArray</a><span class="token punctuation">, </span></span><span class="parameter ">associatedData<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html">ByteArray</a><span class="token operator"> = </span>emptyBytes</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html">ByteArray</a></div></div></div>
               </div>
             </div>
           </div>
+        </div>
 <a data-name="703117382%2FFunctions%2F1007142892" anchor-label="encrypt" id="703117382%2FFunctions%2F1007142892" data-filterable-set=":aead:dokkaHtmlPartial/commonMain"></a>
-          <div class="table-row" data-filterable-current=":aead:dokkaHtmlPartial/commonMain" data-filterable-set=":aead:dokkaHtmlPartial/commonMain">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="encrypt.html"><span><span>encrypt</span></span></a></div>
+        <div class="table-row" data-filterable-current=":aead:dokkaHtmlPartial/commonMain" data-filterable-set=":aead:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="encrypt.html"><span><span>encrypt</span></span></a></div>
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="703117382%2FFunctions%2F1007142892"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":aead:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="encrypt.html"><span class="token function">encrypt</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">plaintext<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html">ByteArray</a><span class="token punctuation">, </span></span><span class="parameter ">associatedData<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html">ByteArray</a><span class="token operator"> = </span>emptyBytes</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html">ByteArray</a></div></div></div>
-                </div>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":aead:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="encrypt.html"><span class="token function">encrypt</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">plaintext<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html">ByteArray</a><span class="token punctuation">, </span></span><span class="parameter ">associatedData<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html">ByteArray</a><span class="token operator"> = </span>emptyBytes</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html">ByteArray</a></div></div></div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Inheritors</h2>
+      <div class="table" data-togglable="Inheritors"><a data-name="-1212747555%2FInheritors%2F1007142892" anchor-label="EncryptThenMac" id="-1212747555%2FInheritors%2F1007142892" data-filterable-set=":aead:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":aead:dokkaHtmlPartial/commonMain" data-filterable-set=":aead:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../-encrypt-then-mac/index.html">EncryptThenMac</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1212747555%2FInheritors%2F1007142892"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div></div>
+          </div>
+        </div>
+<a data-name="-519121649%2FInheritors%2F1007142892" anchor-label="XChaCha20Poly1305" id="-519121649%2FInheritors%2F1007142892" data-filterable-set=":aead:dokkaHtmlPartial/commonMain"></a>
+        <div class="table-row" data-filterable-current=":aead:dokkaHtmlPartial/commonMain" data-filterable-set=":aead:dokkaHtmlPartial/commonMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../-x-cha-cha20-poly1305/index.html">XChaCha20Poly1305</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-519121649%2FInheritors%2F1007142892"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div></div>
+          </div>
+        </div>
+<a data-name="941406088%2FInheritors%2F-620296332" anchor-label="AesGcm" id="941406088%2FInheritors%2F-620296332" data-filterable-set=":aead:dokkaHtmlPartial/commonMain :aead:dokkaHtmlPartial/commonJvmMain :aead:dokkaHtmlPartial/darwinMain :aead:dokkaHtmlPartial/jsMain"></a>
+        <div class="table-row" data-filterable-current=":aead:dokkaHtmlPartial/commonMain :aead:dokkaHtmlPartial/commonJvmMain :aead:dokkaHtmlPartial/darwinMain :aead:dokkaHtmlPartial/jsMain" data-filterable-set=":aead:dokkaHtmlPartial/commonMain :aead:dokkaHtmlPartial/commonJvmMain :aead:dokkaHtmlPartial/darwinMain :aead:dokkaHtmlPartial/jsMain">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../-aes-gcm/index.html">AesGcm</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="941406088%2FInheritors%2F-620296332"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div></div>
           </div>
         </div>
       </div>
@@ -119,6 +153,6 @@
       </div>
     </div>
 </div>
-</body>
-</html>
+
+</body></html>
 
