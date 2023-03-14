@@ -22,5 +22,5 @@ kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version 
 diglol-encoding = { module = "com.diglol.encoding:encoding", version = "0.2.0" }
 argon2-jvm = { module = "de.mkammerer:argon2-jvm", version = "2.11" }
 argon2-android = { module = "org.signal:argon2", version = "13.1" }
-androidx-test-runner = { module = "androidx.test:runner", version = "1.5.1" }
+androidx-test-runner = { module = "androidx.test:runner", version = "1.5.2" }
 junit = { module = "junit:junit", version = "4.13.2" }
