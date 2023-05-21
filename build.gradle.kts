@@ -10,6 +10,8 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.dokka.gradle.DokkaMultiModuleTask
 import org.jetbrains.dokka.gradle.DokkaTaskPartial
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnLockMismatchReport
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
@@ -127,6 +129,11 @@ rootProject.plugins.withType(YarnPlugin::class.java) {
     YarnLockMismatchReport.WARNING // NONE | FAIL
   rootProject.the<YarnRootExtension>().reportNewYarnLock = false // true
   rootProject.the<YarnRootExtension>().yarnLockAutoReplace = false // true
+}
+
+// TODO Remove when it's fixed https://github.com/antelle/argon2-browser/issues/81
+rootProject.plugins.withType(NodeJsRootPlugin::class.java) {
+  rootProject.the<NodeJsRootExtension>().nodeVersion = "18.0.0"
 }
 
 allprojects {
