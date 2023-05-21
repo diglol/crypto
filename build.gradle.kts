@@ -18,7 +18,8 @@ buildscript {
   dependencies {
     classpath(libs.kotlin.gradle.plugin)
     classpath(libs.android.gradle.plugin)
-    classpath(libs.cklib.gradle.plugin)
+    // classpath(libs.cklib.gradle.plugin) // TODO https://github.com/touchlab/cklib/pull/11
+    classpath(files("local-plugins/cklib-plugin-0.2.4-fix.jar"))
     classpath(libs.dokka.gradle.plugin)
     classpath(libs.mavenPublish.gradle.plugin)
     classpath(libs.benchmark.gradle.plugin)
