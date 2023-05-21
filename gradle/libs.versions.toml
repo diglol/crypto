@@ -1,7 +1,4 @@
 [versions]
-compileSdk = "33"
-minSdk = "21"
-targetSdk = "33"
 kotlin = "1.8.10"
 benchmark = "0.4.7"
 kotlinx-coroutines = "1.7.1"
