@@ -117,10 +117,7 @@ kotlin {
 android {
   namespace = "diglol.crypto.cipher"
 
-  compileSdk = libs.versions.compileSdk.get().toInt()
   defaultConfig {
-    minSdk = libs.versions.minSdk.get().toInt()
-
     consumerProguardFiles("proguard-rules.pro")
   }
 }
