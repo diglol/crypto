@@ -154,6 +154,21 @@ allprojects {
     }
   }
 
+  // Workaround for https://github.com/Kotlin/dokka/issues/2977.
+  // We disable the C Interop IDE metadata task when generating documentation using Dokka.
+  gradle.taskGraph.whenReady {
+    val hasDokkaTasks = gradle.taskGraph.allTasks.any {
+      it is org.jetbrains.dokka.gradle.AbstractDokkaTask
+    }
+    if (hasDokkaTasks) {
+      @Suppress("UNCHECKED_CAST")
+      tasks.withType(Class.forName("org.jetbrains.kotlin.gradle.targets.native.internal.CInteropMetadataDependencyTransformationTask") as Class<DefaultTask>)
+        .configureEach {
+          enabled = false
+        }
+    }
+  }
+
   plugins.withId("com.vanniktech.maven.publish.base") {
     configure<PublishingExtension> {
       repositories {
