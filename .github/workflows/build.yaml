@@ -2,6 +2,7 @@ name: build
 
 on:
   pull_request: { }
+  workflow_dispatch: {}
   push:
     branches:
       - 'trunk'
@@ -38,7 +39,7 @@ jobs:
       - uses: actions/setup-java@v3.11.0
         with:
           distribution: 'zulu'
-          java-version: 18
+          java-version: 20
 
       - run: ./gradlew build --stacktrace
         if: matrix.arch == 'amd64' || matrix.arch == 'x86_64'
@@ -54,7 +55,7 @@ jobs:
       - uses: actions/setup-java@v3.11.0
         with:
           distribution: 'zulu'
-          java-version: 18
+          java-version: 20
 
       - run: ./gradlew dokkaHtmlMultiModule
 
