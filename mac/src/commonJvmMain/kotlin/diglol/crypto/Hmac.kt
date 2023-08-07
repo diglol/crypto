@@ -28,7 +28,6 @@ actual class Hmac actual constructor(
   private val hmac = MacJvm.getInstance(type.typeName())
 
   init {
-    checkParams()
     hmac.init(SecretKeySpec(key, type.typeName()))
   }
 
