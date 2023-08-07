@@ -48,6 +48,9 @@ abstract class Otp(
   companion object {
     @JvmStatic
     fun String.toOtp(): Otp? {
+      if (length <= 15) {
+        return null
+      }
       val schema = substring(0, 10)
       if (schema != "otpauth://") {
         return null
