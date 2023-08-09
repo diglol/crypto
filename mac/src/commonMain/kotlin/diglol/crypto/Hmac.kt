@@ -20,14 +20,6 @@ expect class Hmac(type: Type, key: ByteArray) : Mac {
   override suspend fun verify(mac: ByteArray, data: ByteArray): Boolean
 }
 
-private const val MIN_KEY_SIZE = 16
-
-internal fun Hmac.checkParams() {
-  if (key.size < MIN_KEY_SIZE) {
-    throw Error("Key size too small, need at least $MIN_KEY_SIZE bytes")
-  }
-}
-
 internal inline fun Hmac.Type.commonSize(): Int = when (this) {
   Hmac.Type.SHA1 -> 20
   Hmac.Type.SHA256 -> 32

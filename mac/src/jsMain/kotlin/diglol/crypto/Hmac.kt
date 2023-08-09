@@ -31,7 +31,6 @@ actual class Hmac actual constructor(
   private val alg = js("{'name': 'HMAC', 'hash': {}}")
 
   init {
-    checkParams()
     alg["hash"]["name"] = type.type()
   }
 

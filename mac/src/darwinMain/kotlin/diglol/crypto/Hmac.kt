@@ -31,10 +31,6 @@ actual class Hmac actual constructor(
     }
   }
 
-  init {
-    checkParams()
-  }
-
   actual override fun size(): Int = type.size()
 
   actual override suspend fun compute(data: ByteArray, macSize: Int): ByteArray {
