@@ -3,6 +3,7 @@ package diglol.crypto
 import diglol.crypto.internal.curve25519_dh_CalculatePublicKey_fast
 import diglol.crypto.internal.curve25519_dh_CreateSharedKey
 import kotlinx.cinterop.CValuesRef
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.UByteVar
 import kotlinx.cinterop.refTo
 
@@ -12,10 +13,11 @@ actual object X25519 : Dh {
 
   actual override suspend fun generateKeyPair(): KeyPair = generateKeyPair(generatePrivateKey())
 
+  @Suppress("UNCHECKED_CAST")
+  @OptIn(ExperimentalForeignApi::class)
   actual override suspend fun generateKeyPair(privateKey: ByteArray): KeyPair {
     checkPrivateKey(privateKey)
     val publicKey = ByteArray(KEY_SIZE)
-    @Suppress("UNCHECKED_CAST")
     curve25519_dh_CalculatePublicKey_fast(
       publicKey.refTo(0) as CValuesRef<UByteVar>,
       privateKey.refTo(0) as CValuesRef<UByteVar>
@@ -23,11 +25,12 @@ actual object X25519 : Dh {
     return KeyPair(publicKey, privateKey)
   }
 
+  @Suppress("UNCHECKED_CAST")
+  @OptIn(ExperimentalForeignApi::class)
   actual override suspend fun compute(privateKey: ByteArray, peersPublicKey: ByteArray): ByteArray {
     checkPrivateKey(privateKey)
     checkPublicKey(peersPublicKey)
     val sharedKey = ByteArray(KEY_SIZE)
-    @Suppress("UNCHECKED_CAST")
     curve25519_dh_CreateSharedKey(
       sharedKey.refTo(0) as CValuesRef<UByteVar>,
       peersPublicKey.refTo(0) as CValuesRef<UByteVar>,
