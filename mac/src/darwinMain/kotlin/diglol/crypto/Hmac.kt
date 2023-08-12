@@ -2,6 +2,8 @@ package diglol.crypto
 
 import diglol.crypto.internal.refToOrElse
 import diglol.crypto.internal.selfOrCopyOf
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.UnsafeNumber
 import kotlinx.cinterop.convert
 import kotlinx.cinterop.refTo
 import platform.CoreCrypto.CCHmac
@@ -33,10 +35,10 @@ actual class Hmac actual constructor(
 
   actual override fun size(): Int = type.size()
 
+  @OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
   actual override suspend fun compute(data: ByteArray, macSize: Int): ByteArray {
     checkMacSize(macSize)
     val mac = ByteArray(size())
-    @Suppress("OPT_IN_USAGE")
     CCHmac(
       type.typeName(),
       key.refTo(0),

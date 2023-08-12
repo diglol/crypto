@@ -1,6 +1,8 @@
 package diglol.crypto
 
 import kotlinx.cinterop.CValuesRef
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.UnsafeNumber
 import kotlinx.cinterop.convert
 import kotlinx.cinterop.refTo
 import platform.CoreCrypto.CCKeyDerivationPBKDF
@@ -21,6 +23,8 @@ actual class Pbkdf2 actual constructor(
     checkParams()
   }
 
+  @Suppress("UNCHECKED_CAST")
+  @OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
   actual override suspend fun deriveKey(password: ByteArray, salt: ByteArray): ByteArray {
     checkPbkdf2Salt(salt)
     val passwordString = password.decodeToString()
@@ -31,7 +35,6 @@ actual class Pbkdf2 actual constructor(
       Hmac.Type.SHA512 -> kCCPRFHmacAlgSHA512
     }
     val result = ByteArray(keySize)
-    @Suppress("UNCHECKED_CAST", "OPT_IN_USAGE")
     CCKeyDerivationPBKDF(
       kCCPBKDF2,
       passwordString,

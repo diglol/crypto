@@ -7,6 +7,7 @@ import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import com.vanniktech.maven.publish.SonatypeHost
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
+import org.jetbrains.dokka.gradle.AbstractDokkaTask
 import org.jetbrains.dokka.gradle.DokkaMultiModuleTask
 import org.jetbrains.dokka.gradle.DokkaTaskPartial
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -46,7 +47,7 @@ allprojects {
 }
 
 subprojects {
-  fun CommonExtension<*, *, *, *>.applyAndroid() {
+  fun CommonExtension<*, *, *, *, *>.applyAndroid() {
     lint {
       textReport = true
       textOutput = file("stdout")
@@ -154,18 +155,14 @@ allprojects {
     }
   }
 
-  // Workaround for https://github.com/Kotlin/dokka/issues/2977.
-  // We disable the C Interop IDE metadata task when generating documentation using Dokka.
-  gradle.taskGraph.whenReady {
-    val hasDokkaTasks = gradle.taskGraph.allTasks.any {
-      it is org.jetbrains.dokka.gradle.AbstractDokkaTask
-    }
-    if (hasDokkaTasks) {
-      @Suppress("UNCHECKED_CAST")
-      tasks.withType(Class.forName("org.jetbrains.kotlin.gradle.targets.native.internal.CInteropMetadataDependencyTransformationTask") as Class<DefaultTask>)
-        .configureEach {
-          enabled = false
-        }
+// Workaround for https://github.com/Kotlin/dokka/issues/2977.
+// We disable the C Interop IDE metadata task when generating documentation using Dokka.
+  tasks.withType<AbstractDokkaTask> {
+    @Suppress("UNCHECKED_CAST")
+    val taskClass =
+      Class.forName("org.jetbrains.kotlin.gradle.targets.native.internal.CInteropMetadataDependencyTransformationTask") as Class<Task>
+    parent?.subprojects?.forEach {
+      dependsOn(it.tasks.withType(taskClass))
     }
   }
 

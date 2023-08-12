@@ -6,7 +6,10 @@ import diglol.crypto.internal.plusByteArrays
 import diglol.crypto.internal.toByteArray
 import diglol.crypto.internal.toNSData
 import diglol.crypto.random.nextBytes
+import kotlinx.cinterop.BetaInteropApi
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCObjectVar
+import kotlinx.cinterop.UnsafeNumber
 import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.convert
@@ -27,7 +30,7 @@ actual class AesGcm actual constructor(
     checkIv()
   }
 
-  @Suppress("OPT_IN_USAGE")
+  @OptIn(ExperimentalForeignApi::class, UnsafeNumber::class, BetaInteropApi::class)
   actual override suspend fun encrypt(
     plaintext: ByteArray,
     associatedData: ByteArray
@@ -53,7 +56,7 @@ actual class AesGcm actual constructor(
     }
   }
 
-  @Suppress("OPT_IN_USAGE")
+  @OptIn(ExperimentalForeignApi::class, UnsafeNumber::class, BetaInteropApi::class)
   actual override suspend fun decrypt(
     ciphertext: ByteArray,
     associatedData: ByteArray

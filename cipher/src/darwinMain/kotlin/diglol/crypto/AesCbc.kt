@@ -3,6 +3,8 @@ package diglol.crypto
 import diglol.crypto.internal.refToOrElse
 import diglol.crypto.internal.selfOrCopyOf
 import diglol.crypto.random.nextBytes
+import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.UnsafeNumber
 import kotlinx.cinterop.cValue
 import kotlinx.cinterop.convert
 import kotlinx.cinterop.memScoped
@@ -42,7 +44,7 @@ actual class AesCbc actual constructor(
     return doFinal(kCCDecrypt, key, iv, rawCiphertext)
   }
 
-  @Suppress("OPT_IN_USAGE")
+  @OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
   private fun doFinal(
     op: CCOperation,
     key: ByteArray,

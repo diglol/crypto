@@ -3,6 +3,7 @@ package diglol.crypto
 import diglol.crypto.internal.refToOrElse
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.CValuesRef
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.UByteVar
 import kotlinx.cinterop.convert
 import kotlinx.cinterop.refTo
@@ -26,6 +27,8 @@ actual class Hash actual constructor(
     SHA512
   }
 
+  @Suppress("UNCHECKED_CAST")
+  @OptIn(ExperimentalForeignApi::class)
   actual suspend fun hash(data: ByteArray): ByteArray {
     val shaFun: (data: CValuesRef<*>?, len: CC_LONG, md: CValuesRef<UByteVar>?) -> CPointer<UByteVar>?
     val shaLen: Int
@@ -51,7 +54,6 @@ actual class Hash actual constructor(
       }
     }
     val result = ByteArray(shaLen)
-    @Suppress("UNCHECKED_CAST")
     shaFun(data.refToOrElse(0), data.size.convert(), result.refTo(0) as CValuesRef<UByteVar>)
     return result
   }

@@ -11,6 +11,7 @@ import diglol.crypto.internal.Argon2_version
 import diglol.crypto.internal.argon2_context
 import diglol.crypto.internal.argon2_ctx
 import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.cValue
 import kotlinx.cinterop.convert
@@ -56,11 +57,12 @@ actual class Argon2 actual constructor(
     checkParams()
   }
 
+  @Suppress("UNCHECKED_CAST")
+  @OptIn(ExperimentalForeignApi::class)
   actual override suspend fun deriveKey(password: ByteArray, salt: ByteArray): ByteArray {
     checkArgon2Salt(salt)
     val result = ByteArray(hashSize)
 
-    @Suppress("UNCHECKED_CAST")
     val context = cValue<argon2_context> {
       out = result.usePinned { it.addressOf(0) } as CPointer<uint8_tVar>
       outlen = hashSize.convert()

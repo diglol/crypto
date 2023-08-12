@@ -5,7 +5,9 @@ import diglol.crypto.internal.ed25519_SignMessage
 import diglol.crypto.internal.ed25519_VerifySignature
 import diglol.crypto.internal.refToOrElse
 import kotlinx.cinterop.CValuesRef
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.UByteVar
+import kotlinx.cinterop.UnsafeNumber
 import kotlinx.cinterop.convert
 import kotlinx.cinterop.cstr
 import kotlinx.cinterop.refTo
@@ -18,6 +20,8 @@ actual object Ed25519 : Dsa {
 
   actual override suspend fun generateKeyPair(): KeyPair = generateKeyPair(generatePrivateKey())
 
+  @Suppress("UNCHECKED_CAST")
+  @OptIn(ExperimentalForeignApi::class)
   actual override suspend fun generateKeyPair(privateKey: ByteArray): KeyPair {
     checkPrivateKey(privateKey)
     val publicKey = ByteArray(KEY_SIZE)
@@ -32,9 +36,10 @@ actual object Ed25519 : Dsa {
   actual override suspend fun sign(privateKey: ByteArray, data: ByteArray): ByteArray =
     sign(generateKeyPair(privateKey), data)
 
+  @Suppress("UNCHECKED_CAST")
+  @OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
   actual suspend fun sign(keyPair: KeyPair, data: ByteArray): ByteArray {
     val signature = ByteArray(SIGN_SIZE)
-    @Suppress("UNCHECKED_CAST", "OPT_IN_USAGE")
     ed25519_SignMessage(
       signature.refTo(0) as CValuesRef<UByteVar>,
       (keyPair.privateKey + keyPair.publicKey).refTo(0) as CValuesRef<UByteVar>,
@@ -45,6 +50,8 @@ actual object Ed25519 : Dsa {
     return signature
   }
 
+  @Suppress("UNCHECKED_CAST")
+  @OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
   actual override suspend fun verify(
     signature: ByteArray,
     publicKey: ByteArray,
@@ -52,7 +59,6 @@ actual object Ed25519 : Dsa {
   ): Boolean {
     checkSignature(signature)
     checkPublicKey(publicKey)
-    @Suppress("UNCHECKED_CAST", "OPT_IN_USAGE")
     return ed25519_VerifySignature(
       signature.refTo(0) as CValuesRef<UByteVar>,
       publicKey.refTo(0) as CValuesRef<UByteVar>,
