@@ -43,13 +43,13 @@ Diglol Crypto for Kotlin Multiplatform.
 包含所有的子模块
 
 ```gradle
-implementation("com.diglol.crypto:crypto:0.1.4")
+implementation("com.diglol.crypto:crypto:0.1.5")
 ```
 
 _如果需要依赖子模块，请参考当前支持的加密常量。_
 
 ```gradle
-implementation("com.diglol.crypto:${submodule}:0.1.4")
+implementation("com.diglol.crypto:${submodule}:0.1.5")
 ```
 
 ### License

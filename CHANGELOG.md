@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+## [0.1.5] - 2023-08-16
+
+### Changed
+
+* Remove the minimum length limit for Hmac - Key (#82)
+
+### Fixed
+
+* Fix StringIndexOutOfBoundsException when converting a string to Otp (#83)
+
 ## [0.1.4] - 2023-02-25
 
 ### Changed
