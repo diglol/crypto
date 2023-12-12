@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalForeignApi::class)
+
 package diglol.crypto
 
 import diglol.crypto.internal.ARGON2_OK
