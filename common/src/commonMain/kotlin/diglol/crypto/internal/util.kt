@@ -1,8 +1,5 @@
 package diglol.crypto.internal
 
-import kotlin.native.concurrent.SharedImmutable
-
-@SharedImmutable
 val emptyBytes: ByteArray = ByteArray(0)
 
 fun ByteArray.selfOrCopyOf(newSize: Int): ByteArray = if (size == newSize) this else copyOf(newSize)
