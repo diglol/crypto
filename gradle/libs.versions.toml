@@ -8,7 +8,7 @@ kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", v
 kotlin-allopen = { module = "org.jetbrains.kotlin:kotlin-allopen", version.ref = "kotlin" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test" }
 dokka-gradle-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version = "1.9.10" }
-mavenPublish-gradle-plugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version = "0.25.3" }
+mavenPublish-gradle-plugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version = "0.26.0" }
 benchmark-runtime = { module = "org.jetbrains.kotlinx:kotlinx-benchmark-runtime", version.ref = "benchmark" }
 benchmark-gradle-plugin = { module = "org.jetbrains.kotlinx:kotlinx-benchmark-plugin", version.ref = "benchmark" }
 jmh-core = { module = "org.openjdk.jmh:jmh-core", version = "1.23" }
