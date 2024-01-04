@@ -33,6 +33,9 @@ Currently supported:
 - otp
   - [HOTP][hotp]
   - [TOTP][totp]
+- [siphash][siphash]
+  - siphash
+  - halfsiphash
 
 ### Releases
 
@@ -82,3 +85,4 @@ implementation("com.diglol.crypto:${submodule}:0.1.5")
 [encryptthenmac]: https://datatracker.ietf.org/doc/html/draft-mcgrew-aead-aes-cbc-hmac-sha2-05
 [hotp]: https://datatracker.ietf.org/doc/html/rfc4226
 [totp]: https://datatracker.ietf.org/doc/html/rfc6238
+[siphash]: https://datatracker.ietf.org/doc/rfc9231/

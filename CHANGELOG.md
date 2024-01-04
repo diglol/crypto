@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Added
+
+* Siphash implementation
+* Halfsiphash implementation
+
 ## [0.1.5] - 2023-08-16
 
 ### Changed

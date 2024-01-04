@@ -15,5 +15,6 @@ if (!System.getProperty("os.name").startsWith("Windows")) {
 }
 include(":cipher")
 include(":otp")
+include(":siphash")
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
