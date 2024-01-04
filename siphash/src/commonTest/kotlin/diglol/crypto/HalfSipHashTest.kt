@@ -5,7 +5,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlinx.coroutines.test.runTest
 
-class SipHashTest {
+class HalfSipHashTest {
 
   //https://github.com/veorq/SipHash/blob/master/vectors.h
   private val halfSiphashSamples = listOf(
