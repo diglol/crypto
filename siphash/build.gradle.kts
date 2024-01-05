@@ -114,7 +114,7 @@ kotlin {
 }
 
 android {
-  namespace = "diglol.crypto.hash"
+  namespace = "diglol.crypto.siphash"
 
   defaultConfig {
     consumerProguardFiles("proguard-rules.pro")

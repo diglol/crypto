@@ -1,6 +1,11 @@
 package diglol.crypto
 
+/**
+ * HalfSipHash works with 32-bit words instead of 64-bit,
+ * takes a 64-bit key, and returns 32-bit tag.
+ */
 object HalfSipHash {
+
   fun hash(key: SipKey, data: ByteArray): Int {
     var m: Int
     val s = State(key)
@@ -35,7 +40,6 @@ object HalfSipHash {
 
       1 -> last = last or data[off].toUByte().toInt()
       0 -> {}
-      else -> throw IllegalStateException("Unexpected offset: $off")
     }
     return last
   }

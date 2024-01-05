@@ -1,6 +1,9 @@
 package diglol.crypto
 
-// https://datatracker.ietf.org/doc/html/rfc4634
+/**
+ * SipHash works with 64-bit words,
+ * takes a 64-bit key, and returns 64-bit tag.
+ */
 object SipHash {
 
   fun hash(key: SipKey, data: ByteArray): Long {
@@ -71,7 +74,6 @@ object SipHash {
 
       1 -> last = last or data[off].toLong()
       0 -> {}
-      else -> throw IllegalStateException("Unexpected offset: $off")
     }
     return last
   }

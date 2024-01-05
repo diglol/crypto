@@ -1,10 +1,12 @@
 package diglol.crypto
 
-
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
+import kotlin.test.fail
 import kotlinx.coroutines.test.runTest
 
+@OptIn(ExperimentalUnsignedTypes::class)
 class SipHashTest {
 
   //https://github.com/veorq/SipHash/blob/master/vectors.h
@@ -84,6 +86,19 @@ class SipHashTest {
         expected.toByteArray().toLong(0),
         index.toString()
       )
+    }
+  }
+
+  @Test
+  fun shouldThrow_whenInvalidKey_used() {
+    val invalidKeySizes = listOf(0, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19)
+    invalidKeySizes.forEach { length ->
+      try {
+        SipKey(ByteArray(length))
+        fail("Key needs to be 8 bytes for HalfSipHash or 16 bytes for SipHash. Current key is: $length")
+      } catch (invalid: IllegalArgumentException) {
+        assertTrue(true, "$invalid")
+      }
     }
   }
 }
