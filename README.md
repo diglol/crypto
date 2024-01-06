@@ -1,5 +1,17 @@
 # Diglol Crypto
 
+[![badge-license]][url-license]
+[![badge-latest-release]][url-latest-release]
+
+![badge-platform-android]
+![badge-platform-jvm]
+![badge-platform-js]
+![badge-platform-linux]
+![badge-platform-ios]
+![badge-platform-tvos]
+![badge-platform-watchos]
+![badge-platform-windows]
+
 Diglol Crypto for Kotlin Multiplatform.
 
 Currently supported:
@@ -33,6 +45,9 @@ Currently supported:
 - otp
   - [HOTP][hotp]
   - [TOTP][totp]
+- [siphash][siphash]
+  - siphash
+  - halfsiphash
 
 ### Releases
 
@@ -82,3 +97,20 @@ implementation("com.diglol.crypto:${submodule}:0.1.5")
 [encryptthenmac]: https://datatracker.ietf.org/doc/html/draft-mcgrew-aead-aes-cbc-hmac-sha2-05
 [hotp]: https://datatracker.ietf.org/doc/html/rfc4226
 [totp]: https://datatracker.ietf.org/doc/html/rfc6238
+[siphash]: https://datatracker.ietf.org/doc/rfc9231/
+
+<!-- TAG_VERSION -->
+[badge-latest-release]: https://img.shields.io/badge/latest--release-0.1.5-blue.svg?style=flat
+[badge-license]: https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat
+[url-latest-release]: https://github.com/diglol/crypto/releases/latest
+[url-license]: https://www.apache.org/licenses/LICENSE-2.0.txt
+
+<!-- TAG_PLATFORMS -->
+[badge-platform-android]: http://img.shields.io/badge/-android-6EDB8D.svg?style=flat
+[badge-platform-jvm]: http://img.shields.io/badge/-jvm-DB413D.svg?style=flat
+[badge-platform-js]: http://img.shields.io/badge/-js-F8DB5D.svg?style=flat
+[badge-platform-linux]: http://img.shields.io/badge/-linux-2D3F6C.svg?style=flat
+[badge-platform-tvos]: http://img.shields.io/badge/-tvos-808080.svg?style=flat
+[badge-platform-ios]: http://img.shields.io/badge/-ios-808080.svg?style=flat
+[badge-platform-watchos]: http://img.shields.io/badge/-watchos-C0C0C0.svg?style=flat
+[badge-platform-windows]: http://img.shields.io/badge/-windows-4D76CD.svg?style=flat
