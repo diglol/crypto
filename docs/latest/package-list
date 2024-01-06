@@ -33,3 +33,5 @@ module:pkc
 diglol.crypto
 module:random
 diglol.crypto.random
+module:siphash
+diglol.crypto
