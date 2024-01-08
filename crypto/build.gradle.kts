@@ -54,6 +54,7 @@ kotlin {
         api(projects.cipher)
         api(projects.aead)
         api(projects.otp)
+        api(projects.siphash)
       }
     }
     val commonTest by sourceSets.getting {
