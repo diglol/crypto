@@ -58,13 +58,13 @@ Diglol Crypto for Kotlin Multiplatform.
 包含所有的子模块
 
 ```gradle
-implementation("com.diglol.crypto:crypto:0.1.5")
+implementation("com.diglol.crypto:crypto:0.2.0")
 ```
 
 _如果需要依赖子模块，请参考当前支持的加密常量。_
 
 ```gradle
-implementation("com.diglol.crypto:${submodule}:0.1.5")
+implementation("com.diglol.crypto:${submodule}:0.2.0")
 ```
 
 ### License
@@ -100,7 +100,7 @@ implementation("com.diglol.crypto:${submodule}:0.1.5")
 [siphash]: https://datatracker.ietf.org/doc/rfc9231/
 
 <!-- TAG_VERSION -->
-[badge-latest-release]: https://img.shields.io/badge/latest--release-0.1.5-blue.svg?style=flat
+[badge-latest-release]: https://img.shields.io/badge/latest--release-0.2.0-blue.svg?style=flat
 [badge-license]: https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat
 [url-latest-release]: https://github.com/diglol/crypto/releases/latest
 [url-license]: https://www.apache.org/licenses/LICENSE-2.0.txt

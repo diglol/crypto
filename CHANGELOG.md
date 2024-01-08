@@ -2,10 +2,12 @@
 
 ## [Unreleased]
 
+## [0.2.0] - 2024-01-08
+
 ### Added
 
-* Siphash implementation
-* Halfsiphash implementation
+* Siphash implementation (#108)
+* Halfsiphash implementation (#108)
 
 ## [0.1.5] - 2023-08-16
 
