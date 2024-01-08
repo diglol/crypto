@@ -1,13 +1,17 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
+$dokka.location:diglol.crypto/Argon2.Type/entries/#/PointingToDeclaration/kdf/diglol.crypto/-argon2/-type/[jvm]entries.html
 $dokka.location:diglol.crypto/Argon2.Type/type/#/PointingToDeclaration/kdf/diglol.crypto/-argon2/-type/[jvm]type.html
 $dokka.location:diglol.crypto/Argon2.Type/valueOf/#kotlin.String/PointingToDeclaration/kdf/diglol.crypto/-argon2/-type/[jvm]value-of.html
 $dokka.location:diglol.crypto/Argon2.Type/values/#/PointingToDeclaration/kdf/diglol.crypto/-argon2/-type/[jvm]values.html
+$dokka.location:diglol.crypto/Argon2.Version/entries/#/PointingToDeclaration/kdf/diglol.crypto/-argon2/-version/[jvm]entries.html
 $dokka.location:diglol.crypto/Argon2.Version/valueOf/#kotlin.String/PointingToDeclaration/kdf/diglol.crypto/-argon2/-version/[jvm]value-of.html
 $dokka.location:diglol.crypto/Argon2.Version/values/#/PointingToDeclaration/kdf/diglol.crypto/-argon2/-version/[jvm]values.html
 $dokka.location:diglol.crypto/Argon2.Version/version/#/PointingToDeclaration/kdf/diglol.crypto/-argon2/-version/[jvm]version.html
+$dokka.location:diglol.crypto/Hash.Type/entries/#/PointingToDeclaration/hash/diglol.crypto/-hash/-type/[js]entries.html
 $dokka.location:diglol.crypto/Hash.Type/valueOf/#kotlin.String/PointingToDeclaration/hash/diglol.crypto/-hash/-type/[js]value-of.html
 $dokka.location:diglol.crypto/Hash.Type/values/#/PointingToDeclaration/hash/diglol.crypto/-hash/-type/[js]values.html
+$dokka.location:diglol.crypto/Hmac.Type/entries/#/PointingToDeclaration/mac/diglol.crypto/-hmac/-type/[js]entries.html
 $dokka.location:diglol.crypto/Hmac.Type/typeName/#/PointingToDeclaration/mac/diglol.crypto/-hmac/-type/[darwin]type-name.html
 $dokka.location:diglol.crypto/Hmac.Type/valueOf/#kotlin.String/PointingToDeclaration/mac/diglol.crypto/-hmac/-type/[js]value-of.html
 $dokka.location:diglol.crypto/Hmac.Type/values/#/PointingToDeclaration/mac/diglol.crypto/-hmac/-type/[js]values.html
@@ -29,3 +33,5 @@ module:pkc
 diglol.crypto
 module:random
 diglol.crypto.random
+module:siphash
+diglol.crypto
