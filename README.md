@@ -103,7 +103,6 @@ implementation("com.diglol.crypto:${submodule}:0.2.0")
 [badge-latest-release]: https://img.shields.io/badge/latest--release-0.2.0-blue.svg?style=flat
 [badge-license]: https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat
 [url-latest-release]: https://github.com/diglol/crypto/releases/latest
-[url-license]: https://www.apache.org/licenses/LICENSE-2.0.txt
 
 <!-- TAG_PLATFORMS -->
 [badge-platform-android]: http://img.shields.io/badge/-android-6EDB8D.svg?style=flat
