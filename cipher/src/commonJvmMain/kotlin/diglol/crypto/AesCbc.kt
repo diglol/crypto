@@ -18,25 +18,24 @@ actual class AesCbc @JvmOverloads actual constructor(
   private val keySpec = SecretKeySpec(key, "AES")
 
   actual override suspend fun encrypt(plaintext: ByteArray): ByteArray {
-    checkPlaintext(plaintext)
+//    checkPlaintext(plaintext)
     try {
       val cipher = localCipher.get()
       val realIv = iv ?: nextBytes(IV_SIZE)
       cipher.init(CipherJvm.ENCRYPT_MODE, keySpec, IvParameterSpec(realIv))
-      return realIv + cipher.doFinal(plaintext)
+      return cipher.doFinal(plaintext)
     } catch (e: Exception) {
       throw Error("Aes cbc encrypt error", e)
     }
   }
 
   actual override suspend fun decrypt(ciphertext: ByteArray): ByteArray {
-    checkCiphertext(ciphertext)
-    val iv = ciphertext.copyOf(IV_SIZE)
-    val rawCiphertext = ciphertext.copyOfRange(IV_SIZE, ciphertext.size)
+//    checkCiphertext(ciphertext)
+//    val rawCiphertext = ciphertext.copyOfRange(IV_SIZE, ciphertext.size)
     try {
       val cipher = localCipher.get()
       cipher.init(CipherJvm.DECRYPT_MODE, keySpec, IvParameterSpec(iv))
-      return cipher.doFinal(rawCiphertext)
+      return cipher.doFinal(ciphertext)
     } catch (e: Exception) {
       throw Error("Aes cbc decrypt error", e)
     }
