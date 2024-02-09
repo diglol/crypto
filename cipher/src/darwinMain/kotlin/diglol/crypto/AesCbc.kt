@@ -33,15 +33,14 @@ actual class AesCbc actual constructor(
 
   actual override suspend fun encrypt(plaintext: ByteArray): ByteArray {
     checkPlaintext(plaintext)
-    val realIv = iv ?: nextBytes(IV_SIZE)
-    return realIv + doFinal(kCCEncrypt, key, realIv, plaintext)
+    return doFinal(kCCEncrypt, key, iv!!, plaintext)
   }
 
   actual override suspend fun decrypt(ciphertext: ByteArray): ByteArray {
     checkCiphertext(ciphertext)
-    val iv = ciphertext.copyOf(IV_SIZE)
-    val rawCiphertext = ciphertext.copyOfRange(IV_SIZE, ciphertext.size)
-    return doFinal(kCCDecrypt, key, iv, rawCiphertext)
+//    val iv = ciphertext.copyOf(IV_SIZE)
+//    val rawCiphertext = ciphertext.copyOfRange(IV_SIZE, ciphertext.size)
+    return doFinal(kCCDecrypt, key, iv!!, ciphertext)
   }
 
   @OptIn(ExperimentalForeignApi::class, UnsafeNumber::class)
@@ -79,3 +78,4 @@ actual class AesCbc actual constructor(
     actual val IV_SIZE: Int = AES_CBC_IV_SIZE
   }
 }
+
